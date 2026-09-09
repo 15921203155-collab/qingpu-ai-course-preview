@@ -1266,71 +1266,85 @@ body {
 <!-- 上下文工程 -->
 <section class="section" id="context" style="background: var(--white);">
   <div class="section-label">CONTEXT ENGINEERING</div>
-  <h2 class="section-title">上下文工程：让AI越聊越懂你</h2>
+  <h2 class="section-title">上下文工程：让AI看到它该看的</h2>
   <div class="divider"></div>
-  <p class="section-desc">提示词工程是"一次性把任务说清楚"。上下文工程是"连续聊天中，AI记住的所有内容"——你之前说过的话、给过的文件、定过的规矩，AI都记得。聊得好，越聊越顺手；聊不好，越聊越跑偏。</p>
+  <p class="section-desc">2025年，OpenAI联合创始人Karpathy提出："我更喜欢上下文工程这个词，因为它描述了真正的能力——给AI恰好正确的上下文，让它能解决任务的艺术。"提示词工程管"怎么问"，上下文工程管"AI能看到什么"。</p>
   
-  <div class="highlight" style="margin-bottom: 40px;">
-    <div class="quote" style="font-size:22px;">打个比方：</div>
-    <div style="margin-top:16px;padding:16px;background:#fff;border-radius:8px;">
-      <p style="margin:0 0 8px 0;color:#999;"><strong>❌ 每次都重新说：</strong>"你是海关宣传干部，写一篇新闻稿，600字，客观严谨，活动是8月28日..."</p>
-      <p style="margin:0;color:#374151;">→ 每次都要重复一遍背景，累。</p>
+  <!-- 一句话对比 -->
+  <div class="grid-2" style="margin-bottom:40px;">
+    <div class="card" style="border-left:4px solid #6b7280;">
+      <h4><span class="icon">📝</span>提示词工程（怎么问）</h4>
+      <p><strong>管什么：</strong>这一次的指令怎么写<br><strong>关注：</strong>措辞、格式、语气、结构<br><strong>比喻：</strong>开会时你怎么提问<br><strong>关系：</strong>是上下文工程的一部分</p>
     </div>
-    <div style="margin-top:12px;padding:16px;background:#f0fdf4;border-radius:8px;">
-      <p style="margin:0 0 8px 0;color:#16a34a;"><strong>✅ 聊过一次就记住：</strong>第一次你告诉AI"我是青浦海关宣传干部，我们的风格是客观严谨，不用夸张词"，之后每次直接说"帮我写个稿子"，AI就知道该怎么写了。</p>
-      <p style="margin:0;color:#374151;">→ 越聊越懂你，不用每次重复。</p>
+    <div class="card" style="border-left:4px solid var(--navy);">
+      <h4><span class="icon">👁️</span>上下文工程（AI能看到什么）</h4>
+      <p><strong>管什么：</strong>AI回答前，窗口里有哪些信息<br><strong>关注：</strong>放什么、怎么组织、什么时候更新、什么时候撤掉<br><strong>比喻：</strong>会前给领导备好哪些材料<br><strong>关系：</strong>包含提示词工程，范围更大</p>
     </div>
   </div>
 
+  <!-- AI的上下文里有什么 -->
   <h3 style="color:var(--navy);margin:0 0 20px 0;font-size:22px;">AI的"上下文"里都有什么？</h3>
   <div class="grid-3" style="margin-bottom:30px;">
     <div class="card" style="border-left:4px solid var(--navy);">
+      <h4><span class="icon">⚙️</span>系统指令</h4>
+      <p>你设定的角色、规矩、偏好。<br>比如"你是海关宣传干部，写作客观严谨"。<br><strong>存在自定义指令里，每次都生效。</strong></p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--navy);">
       <h4><span class="icon">💬</span>对话历史</h4>
-      <p>你之前说过的每一句话、AI的每一次回答，都在上下文里。<br><strong>聊得越多，AI知道的背景越多。</strong></p>
+      <p>这个对话里你说过的每一句话、AI的每一次回答。<br><strong>聊得越多，AI知道的背景越多。</strong></p>
     </div>
     <div class="card" style="border-left:4px solid var(--navy);">
       <h4><span class="icon">📎</span>你给的文件</h4>
-      <p>你上传的政策文件、之前的稿子、参考资料，AI都能看到。<br><strong>给过的文件不用再给第二次。</strong></p>
+      <p>你上传的政策文件、之前的稿子、参考资料。<br><strong>给过的文件AI都能看到，不用重复给。</strong></p>
     </div>
     <div class="card" style="border-left:4px solid var(--navy);">
-      <h4><span class="icon">⚙️</span>你定的规矩</h4>
-      <p>"我们单位不用重磅震惊这类词""标题要15字以内"——说过一次，AI就记住了。<br><strong>这就是自定义指令的作用。</strong></p>
+      <h4><span class="icon">🔧</span>工具调用结果</h4>
+      <p>AI用工具查到的信息、生成的图片、分析的数据。<br><strong>比如AI搜了政策原文，结果也在上下文里。</strong></p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--navy);">
+      <h4><span class="icon">📋</span>当前提示词</h4>
+      <p>你这一次说的话——也就是提示词工程管的部分。<br><strong>只是上下文里的一小块。</strong></p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--gold);background:linear-gradient(135deg,#fffbeb,#fef3c7);">
+      <h4><span class="icon">🎯</span>核心原则</h4>
+      <p><strong>不是信息越多越好，而是恰到好处。</strong><br>该给的给齐，不该给的别给。<br>给多了AI反而"消化不良"。</p>
     </div>
   </div>
 
-  <h3 style="color:var(--navy);margin:0 0 20px 0;font-size:22px;">上下文工程要解决两个问题</h3>
-  <div class="grid-2" style="margin-bottom:30px;">
+  <!-- 一个具体例子 -->
+  <div class="highlight" style="margin-bottom:30px;">
+    <div class="quote" style="font-size:20px;">举个例子：写一篇8月28日企业出海沙龙的新闻稿</div>
+    <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div style="padding:16px;background:#fff;border-radius:8px;">
+        <p style="margin:0 0 8px 0;color:#999;"><strong>❌ 只有提示词（上下文不全）：</strong></p>
+        <p style="margin:0;color:#374151;font-size:14px;line-height:1.8;">"写一篇企业出海沙龙新闻稿，600字"<br><br>→ AI不知道活动时间、地点、嘉宾、重点，只能瞎编。</p>
+      </div>
+      <div style="padding:16px;background:#f0fdf4;border-radius:8px;">
+        <p style="margin:0 0 8px 0;color:#16a34a;"><strong>✅ 上下文工程（信息备齐）：</strong></p>
+        <p style="margin:0;color:#374151;font-size:14px;line-height:1.8;">系统指令：你是青浦海关宣传干部<br>上传文件：活动方案+之前的范文<br>当前提示词：写8月28日沙龙新闻稿<br><br>→ AI拿到所有材料，直接出能用的稿子。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 三个实操要点 -->
+  <h3 style="color:var(--navy);margin:0 0 20px 0;font-size:22px;">你们用的时候，记住三个要点</h3>
+  <div class="grid-3" style="margin-bottom:30px;">
     <div class="card" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border:none;">
-      <h4 style="color:#1e40af;"><span class="icon">✅</span>怎么让AI越聊越懂你？</h4>
-      <ul style="margin:0;padding-left:20px;line-height:2;color:#1e3a8a;">
-        <li><strong>重要的事提前说：</strong>第一次聊天就告诉AI你的岗位、单位风格、常用格式</li>
-        <li><strong>把规矩存进自定义指令：</strong>这样每次新对话AI也记得，不用重新说</li>
-        <li><strong>给参考范文：</strong>上传一篇你们之前发的稿子，AI自动模仿风格</li>
-        <li><strong>及时纠正：</strong>AI写错了就说不对应该是这样，AI下次就记住了</li>
-      </ul>
+      <h4 style="color:#1e40af;"><span class="icon">1️⃣</span>重要的事存进"自定义指令"</h4>
+      <p style="color:#1e3a8a;">你的岗位、单位风格、常用格式、禁忌词——写进自定义指令，每次新对话AI都记得，不用重复说。</p>
+    </div>
+    <div class="card" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:none;">
+      <h4 style="color:#166534;"><span class="icon">2️⃣</span>做任务前把素材给齐</h4>
+      <p style="color:#14532d;">写稿子前，把活动素材、数据、参考范文都上传。AI不会自己知道你们单位的事，必须你给。</p>
     </div>
     <div class="card" style="background:linear-gradient(135deg,#fef3c7,#fef9c3);border:none;">
-      <h4 style="color:#92400e;"><span class="icon">⚠️</span>怎么防止AI聊跑偏？</h4>
-      <ul style="margin:0;padding-left:20px;line-height:2;color:#78350f;">
-        <li><strong>聊太多会消化不良：</strong>一个对话聊了几十轮，AI可能记混前面说的话</li>
-        <li><strong>跑偏了就重开：</strong>发现AI越聊越偏，别硬纠，开一个新对话重新说</li>
-        <li><strong>定期清内存：</strong>长对话可以让AI总结一下我们之前说的重点，然后用总结继续</li>
-        <li><strong>不同任务开不同对话：</strong>写稿子一个对话，做海报一个对话，别混在一起</li>
-      </ul>
+      <h4 style="color:#92400e;"><span class="icon">3️⃣</span>聊跑偏了就重开</h4>
+      <p style="color:#78350f;">一个对话聊几十轮，AI可能记混。发现跑偏别硬纠，开新对话重新说。不同任务开不同对话。</p>
     </div>
-  </div>
-
-  <div class="card" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:none;margin-bottom:30px;">
-    <h4 style="color:#166534;"><span class="icon">💡</span>你们现在就能做的一件事</h4>
-    <p style="margin:0 0 12px 0;color:#14532d;line-height:1.8;">打开豆包工作或WorkBuddy，在自定义指令里写上：</p>
-    <div style="background:#fff;padding:16px;border-radius:8px;border-left:4px solid #16a34a;">
-      <p style="margin:0;color:#374151;line-height:1.8;">"我是青浦海关工作人员，日常工作包括写新闻稿、做政策解读、整理会议纪要。<br>写作风格：客观严谨，不用夸张词，数据必须准确。<br>输出格式：标题+正文，正文分段，每段不超过3行。"</p>
-    </div>
-    <p style="margin:12px 0 0 0;color:#14532d;line-height:1.8;">写好之后，<strong>每次新对话AI都记得这些</strong>，不用每次重复。这就是最简单的上下文工程。</p>
   </div>
 
   <div class="highlight">
-    <div class="quote">提示词工程让AI<span>这一次</span>做得好，<br>上下文工程让AI<span>每一次</span>都做得好。<br>记住：AI不缺聪明，缺的是你没告诉它的信息。</div>
+    <div class="quote">提示词工程让AI<span>这一次</span>听得懂，<br>上下文工程让AI<span>每次</span>都有足够的信息做对。<br>记住：AI不缺聪明，缺的是你没给它看的信息。</div>
   </div>
 </section>
 
