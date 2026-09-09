@@ -662,6 +662,7 @@ body {
     <div class="topnav-tab active" data-tab="course"><span class="tab-icon">📚</span>课程内容</div>
     <div class="topnav-tab" data-tab="demo-text"><span class="tab-icon">📝</span>文案演示</div>
     <div class="topnav-tab" data-tab="demo-image"><span class="tab-icon">🎨</span>出图演示</div>
+    <div class="topnav-tab" data-tab="workbench"><span class="tab-icon">📊</span>工作台</div>
     <div class="topnav-tab" data-tab="ai-partner"><span class="tab-icon">🤖</span>AI伙伴</div>
     <div class="topnav-tab" data-tab="homework"><span class="tab-icon">📋</span>课后作业</div>
     <div class="topnav-tab" data-tab="prompts"><span class="tab-icon">💡</span>提示词库</div>
@@ -1523,6 +1524,37 @@ body {
   <iframe src="课堂演示成品/提示词工程实战案例_封面图三级对比.html?v=20260909" class="tab-full"></iframe>
 </div>
 
+<!-- 标签页：工作台 -->
+<div class="tab-content" id="tab-workbench">
+  <div style="max-width:1000px;margin:0 auto;padding:60px 40px;">
+    <div class="section-label">WORKBENCH</div>
+    <h2 class="section-title">宣传口台账工作台</h2>
+    <div class="divider"></div>
+    <p class="section-desc">用飞书多维表格搭建的宣传口工作台，第6课手把手教大家搭。现在先看看长什么样。</p>
+    
+    <div class="card" style="margin-bottom:30px;">
+      <h4><span class="icon">📊</span>青浦海关宣传口·台账工作台</h4>
+      <p style="margin-bottom:20px;"><strong>三张表：</strong>宣传工作台账、舆情监测台账、常用提示词库<br><strong>一个看板：</strong>发稿量、平台占比、阅读量趋势、爆款识别<br><strong>用法：</strong>发完稿花30秒填一行，月底统计直接出数</p>
+      <a href="https://iviwgkucy86.feishu.cn/base/Q4m5bPxPdaza9NsCljWc1UYdn7e?table=blkGCB1W23nEyepg" target="_blank" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,var(--navy),var(--navy-mid));color:var(--gold);text-decoration:none;border-radius:8px;font-weight:600;font-size:15px;">↗ 打开飞书多维表格演示</a>
+    </div>
+    
+    <div class="grid-3">
+      <div class="card">
+        <h4><span class="icon">📝</span>宣传工作台账</h4>
+        <p>记录每篇发稿：日期、平台、标题、作者、阅读量、链接<br><br>自动统计：本月发稿量、各平台占比、作者工作量</p>
+      </div>
+      <div class="card">
+        <h4><span class="icon">📡</span>舆情监测台账</h4>
+        <p>记录舆情事件：时间、来源、内容、处置情况、结果<br><br>自动统计：舆情趋势、高频关键词、处置时效</p>
+      </div>
+      <div class="card">
+        <h4><span class="icon">💡</span>常用提示词库</h4>
+        <p>沉淀好用的提示词：场景、提示词内容、使用效果、评分<br><br>团队共享：好提示词不用重复造轮子</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- 标签页：AI伙伴 -->
 <div class="tab-content" id="tab-ai-partner">
   <div style="max-width:1000px;margin:0 auto;padding:60px 40px;">
@@ -1571,35 +1603,45 @@ body {
       </div>
     </div>
     
-    <!-- AI入职面试官提示词 -->
+    <!-- AI伙伴创建官提示词 -->
     <div class="card" style="margin-bottom:30px;">
-      <h4 style="margin-bottom:16px;"><span class="icon">🎤</span>标准版：AI入职面试官提示词（推荐）</h4>
-      <p style="margin-bottom:16px;">把下面这段提示词复制到WorkBuddy或豆包工作，AI会自动采访你，最后帮你整理成说明书+精简版设置。</p>
-      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:12px;line-height:1.7;color:var(--text);white-space:pre-wrap;max-height:400px;overflow-y:auto;"># 角色
-你是一位专业的"AI工作伙伴入职面试官"，专门帮助政务宣传口的工作人员，通过对话采访的方式，梳理出一份个性化的"个人AI工作伙伴说明书"。
+      <h4 style="margin-bottom:16px;"><span class="icon">🤖</span>AI伙伴创建官提示词（推荐）</h4>
+      <p style="margin-bottom:16px;">把下面这段提示词复制到WorkBuddy或豆包工作，AI会像"创建官"一样引导你，通过6个问题帮你创建专属的AI工作伙伴，最后引导你把设置保存到长期记忆。</p>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:12px;line-height:1.7;color:var(--text);white-space:pre-wrap;max-height:500px;overflow-y:auto;"># 角色
+你是一位专业的"AI工作伙伴创建官"，专门帮助青浦海关的工作人员，通过轻松的对话引导，创建出一份个性化的"个人AI工作伙伴说明书"，并帮助他把设置保存到AI的长期记忆里。
 
 # 你的任务
-通过6个方面的提问，帮助我想清楚：我是谁、我干什么活、我要AI帮我做什么、什么标准算合格、我们怎么沟通、什么事必须我把关。
+通过6个方面的引导提问，帮助我想清楚：我是谁、我干什么活、我要AI帮我做什么、什么标准算合格、我们怎么沟通、什么事必须我把关。最后整理成说明书，并引导我把它加入AI的长期记忆（自定义指令）。
 
-# 采访规则（非常重要）
-1. 一次只问一个问题，等我回答后再问下一个
+# 引导规则（非常重要）
+1. 一次只问1个核心问题，等我回答后再问下一个
 2. 每个问题开头，先用一句话说明"为什么问这个问题"
-3. 如果我的回答太模糊，可以追问1-2个具体问题
+3. 如果我的回答太模糊，可以追问1个具体问题
 4. 不要替我回答，不要编造我的信息
 5. 全程用轻松、鼓励的语气，像朋友聊天一样
+6. 每个问题都要简单好答，不要一次问太多小问题
 
-# 采访框架（6个方面）
-1. 认识你：岗位和日常工作、服务对象是谁
-2. 工作内容：最常写的三类内容、最耗时头疼的事
+# 引导框架（6个方面）
+1. 认识你：你的岗位和日常工作是什么
+2. 工作内容：最常做的三类工作、最耗时头疼的事
 3. AI帮你做什么：如果只能先帮一件事，最希望是什么
-4. 你的标准：合格的新闻稿/公众号推文是什么样
+4. 你的标准：合格的文稿/汇报/通知是什么样的
 5. 怎么沟通：任务不明确时先问还是先做、多步骤怎么汇报
 6. 权限边界：哪些事AI绝对不能自己做主
 
-# 采访结束后
-整理成两份：
-1. 完整版《个人AI工作伙伴说明书》
-2. 精简版（500-800字，可直接复制到自定义指令）
+# 引导结束后（分三步）
+第一步：整理成两份
+- 完整版《个人AI工作伙伴说明书》
+- 精简版（500-800字，可直接复制到自定义指令）
+
+第二步：给我确认
+- 把精简版展示给我，问我"是否确认用这个作为你的AI伙伴设置？"
+- 如果我要修改，根据我的要求调整，再给我确认
+
+第三步：引导加入长期记忆
+- 我确认后，告诉我："请把下面这段精简版复制到你的「自定义指令」里，这样AI以后每次对话都会记住你的偏好。"
+- 给出具体操作路径：豆包工作→我的→设置→自定义指令；WorkBuddy→设置→AI偏好
+- 最后说："设置完成！以后你的AI伙伴就认识你了，干活会越来越顺手。"
 
 # 现在开始
 先做个简单的自我介绍，然后问第一个问题。</div>
