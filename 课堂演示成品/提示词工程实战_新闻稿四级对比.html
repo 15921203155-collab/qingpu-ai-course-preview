@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>提示词工程实战：新闻稿四级对比</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #0a1628;
+    color: #e0e0e0;
+    padding: 30px 20px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle {
+    text-align: center;
+    color: #78909c;
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+  .level {
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 18px;
+    border-left: 4px solid;
+  }
+  .level-1 { border-color: #c62828; }
+  .level-2 { border-color: #ef6c00; }
+  .level-3 { border-color: #1976d2; }
+  .level-4 { border-color: #2e7d32; }
+  .level-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .level-badge {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 16px;
+    flex-shrink: 0; color: #fff;
+  }
+  .level-1 .level-badge { background: #c62828; }
+  .level-2 .level-badge { background: #ef6c00; }
+  .level-3 .level-badge { background: #1976d2; }
+  .level-4 .level-badge { background: #2e7d32; }
+  .level-title { font-size: 17px; font-weight: 600; }
+  .prompt-box {
+    background: rgba(0,0,0,0.3);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 13px;
+    color: #ffcc80;
+  }
+  .prompt-box .label {
+    color: #78909c; font-size: 11px;
+    margin-bottom: 4px; font-family: inherit;
+  }
+  .output-box {
+    background: rgba(255,255,255,0.03);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #b0bec5;
+    max-height: 120px;
+    overflow-y: auto;
+  }
+  .output-box .news-title {
+    font-weight: 600; color: #e0e0e0;
+    margin-bottom: 8px; font-size: 14px;
+  }
+  .analysis {
+    margin-top: 10px;
+    font-size: 12px;
+    line-height: 1.6;
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+  .level-1 .analysis { background: rgba(198,40,40,0.12); color: #ef9a9a; }
+  .level-2 .analysis { background: rgba(239,108,0,0.12); color: #ffcc80; }
+  .level-3 .analysis { background: rgba(25,118,210,0.12); color: #90caf9; }
+  .level-4 .analysis { background: rgba(46,125,50,0.12); color: #a5d6a7; }
+  .formula-strip {
+    background: linear-gradient(135deg, rgba(41,128,185,0.25), rgba(52,152,219,0.1));
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 24px;
+    text-align: center;
+    border: 1px solid rgba(52,152,219,0.3);
+  }
+  .formula-strip .f-title {
+    font-size: 18px; font-weight: 700;
+    color: #4fc3f7; margin-bottom: 10px;
+  }
+  .formula-strip .f-items {
+    display: flex; justify-content: center;
+    gap: 24px; flex-wrap: wrap;
+  }
+  .formula-strip .f-item {
+    font-size: 15px; color: #b0bec5;
+  }
+  .formula-strip .f-item strong {
+    color: #fff; font-size: 17px;
+  }
+  .conclusion {
+    text-align: center;
+    margin-top: 24px;
+    padding: 16px;
+    font-size: 15px;
+    color: #90a4ae;
+    line-height: 1.8;
+  }
+  .conclusion strong {
+    color: #4fc3f7; font-size: 18px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>提示词工程实战：新闻稿四级对比</h1>
+  <p class="subtitle">同一个AI，同一个任务——提示词逐步优化，结果逐级提升</p>
+
+  <div class="level level-1">
+    <div class="level-header">
+      <div class="level-badge">1</div>
+      <div class="level-title">最差：只说"帮我写个宣传稿"</div>
+    </div>
+    <div class="prompt-box">
+      <div class="label">提示词：</div>
+      帮我写个宣传稿
+    </div>
+    <div class="output-box">
+      近年来，我单位深入贯彻落实上级决策部署，积极开展各项工作，取得了显著成效。全体干部职工团结一心、锐意进取，在多个领域实现了新突破。下一步，我们将继续发扬优良作风，推动各项工作再上新台阶……
+    </div>
+    <div class="analysis">
+      ❌ 完全不知道写什么主题，空话套话，放在任何单位都能用。<strong>不是AI不行，是它不知道该干嘛。</strong>
+    </div>
+  </div>
+
+  <div class="level level-2">
+    <div class="level-header">
+      <div class="level-badge">2</div>
+      <div class="level-title">有主题但不具体</div>
+    </div>
+    <div class="prompt-box">
+      <div class="label">提示词：</div>
+      写一篇海关政策宣讲的新闻稿
+    </div>
+    <div class="output-box">
+      近日，海关部门开展政策宣讲活动，向企业解读相关政策。活动现场，海关工作人员详细介绍了政策内容，并回答了企业关心的问题。此次宣讲活动帮助企业更好地了解政策，受到企业欢迎……
+    </div>
+    <div class="analysis">
+      ✅ 有主题了。❌ 但没有具体政策、哪个海关、哪些企业，没有字数、结构、语气要求，还是太泛。
+    </div>
+  </div>
+
+  <div class="level level-3">
+    <div class="level-header">
+      <div class="level-badge">3</div>
+      <div class="level-title">用万能公式：角色+任务+要求</div>
+    </div>
+    <div class="prompt-box">
+      <div class="label">提示词：</div>
+      你是一位有10年经验的青浦海关宣传干部。帮我写一篇关于"青浦海关综保区新9条政策宣讲会走进跨境电商企业"活动的新闻稿：600字左右，分三段（背景、举措、成效），标题简洁有力，语气客观严谨，不用"重磅""震惊"这类词。
+    </div>
+    <div class="output-box">
+      <div class="news-title">青浦海关送政策进企业 综保区"新9条"助力跨境电商发展</div>
+      近日，青浦海关联合青浦区商务委走进区内重点跨境电商企业，开展综保区"新9条"政策专场宣讲会……宣讲会上，海关业务骨干从政策出台背景、核心条款、适用范围三个方面进行系统梳理……参会企业负责人表示，此次宣讲会内容实、针对性强……
+    </div>
+    <div class="analysis">
+      ✅ 角色准确、主题具体、结构清晰、字数达标、语气严谨。<strong>同一个AI，差别就在提示词里。</strong>
+    </div>
+  </div>
+
+  <div class="level level-4">
+    <div class="level-header">
+      <div class="level-badge">4</div>
+      <div class="level-title">追加优化→成品</div>
+    </div>
+    <div class="prompt-box">
+      <div class="label">追加提示词：</div>
+      很好。现在做三处优化：1.标题再想3个备选，分别突出"政策红利""企业获得感""区关合作"；2.第二段加入数据感表述（如"覆盖20余家企业"）；3.结尾加企业负责人直接引语。
+    </div>
+    <div class="output-box">
+      <div class="news-title">标题备选：①政策红利直达企业！②企业获得感满满 ③区关联动送政策</div>
+      ……覆盖区内20余家跨境电商企业……"以前看政策文件一头雾水，这次听完清楚多了，特别是海外仓退税的操作流程，回去就能落地。"参会企业负责人表示……
+    </div>
+    <div class="analysis">
+      ✅ 从"能用的初稿"变成"可发布的成品"。<strong>好稿子不是一次出来的，是AI出初稿+人工提要求+迭代优化出来的。</strong>
+    </div>
+  </div>
+
+  <div class="formula-strip">
+    <div class="f-title">跟AI说话的万能公式</div>
+    <div class="f-items">
+      <div class="f-item"><strong>角色</strong> 你是谁</div>
+      <div class="f-item"><strong>任务</strong> 干什么</div>
+      <div class="f-item"><strong>要求</strong> 什么标准</div>
+      <div class="f-item"><strong>例子</strong> 参考什么</div>
+    </div>
+  </div>
+
+  <div class="conclusion">
+    <strong>AI是工具，你是大脑。</strong><br>
+    提示词不是咒语，是工作交代。<br>
+    你的专业判断，比提示词本身更重要。
+  </div>
+</div>
+</body>
+</html>

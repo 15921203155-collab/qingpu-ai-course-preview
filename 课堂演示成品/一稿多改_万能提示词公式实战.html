@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一稿多改：万能提示词公式实战</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #0a1628;
+    color: #e0e0e0;
+    padding: 30px 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle {
+    text-align: center;
+    color: #78909c;
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .formula-strip {
+    background: linear-gradient(135deg, rgba(41,128,185,0.25), rgba(52,152,219,0.1));
+    border-radius: 12px;
+    padding: 18px 24px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(52,152,219,0.3);
+    text-align: center;
+  }
+  .formula-strip .f-title {
+    font-size: 16px; font-weight: 700;
+    color: #4fc3f7; margin-bottom: 10px;
+  }
+  .formula-strip .f-items {
+    display: flex; justify-content: center;
+    gap: 20px; flex-wrap: wrap;
+  }
+  .formula-strip .f-item {
+    font-size: 14px; color: #b0bec5;
+    background: rgba(0,0,0,0.2);
+    padding: 6px 14px; border-radius: 16px;
+  }
+  .formula-strip .f-item strong {
+    color: #fff;
+  }
+  .source-box {
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    border: 1px dashed rgba(79,195,247,0.3);
+  }
+  .source-title {
+    font-size: 14px; font-weight: 600;
+    color: #4fc3f7; margin-bottom: 8px;
+  }
+  .source-content {
+    font-size: 12px; color: #b0bec5;
+    line-height: 1.7;
+  }
+  .output-card {
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .output-header {
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .output-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .output-1 .output-header { background: rgba(198,40,40,0.12); }
+  .output-1 .output-icon { background: #c62828; }
+  .output-2 .output-header { background: rgba(25,118,210,0.12); }
+  .output-2 .output-icon { background: #1976d2; }
+  .output-3 .output-header { background: rgba(46,125,50,0.12); }
+  .output-3 .output-icon { background: #2e7d32; }
+  .output-4 .output-header { background: rgba(123,31,162,0.12); }
+  .output-4 .output-icon { background: #7b1fa2; }
+  .output-name { font-size: 18px; font-weight: 600; }
+  .output-purpose { font-size: 12px; color: #78909c; margin-top: 2px; }
+  .prompt-full {
+    padding: 16px 20px;
+    background: rgba(0,0,0,0.25);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .prompt-label {
+    font-size: 12px;
+    color: #4fc3f7;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .prompt-text {
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 12px;
+    color: #e0e0e0;
+    line-height: 1.8;
+  }
+  .prompt-text .role { color: #ff8a65; background: rgba(255,138,101,0.1); padding: 1px 4px; border-radius: 3px; }
+  .prompt-text .task { color: #81c784; background: rgba(129,199,132,0.1); padding: 1px 4px; border-radius: 3px; }
+  .prompt-text .req { color: #64b5f6; background: rgba(100,181,246,0.1); padding: 1px 4px; border-radius: 3px; }
+  .prompt-text .example { color: #ba68c8; background: rgba(186,104,200,0.1); padding: 1px 4px; border-radius: 3px; }
+  .prompt-legend {
+    display: flex; gap: 16px; margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    font-size: 11px; display: flex; align-items: center; gap: 4px;
+  }
+  .legend-dot {
+    width: 10px; height: 10px; border-radius: 2px;
+  }
+  .result-section {
+    padding: 18px 20px;
+  }
+  .result-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 12px;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .result-body {
+    font-size: 13px;
+    line-height: 1.8;
+    color: #b0bec5;
+  }
+  .result-body p { margin-bottom: 8px; }
+  .result-body .highlight {
+    background: rgba(79,195,247,0.1);
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: #4fc3f7;
+  }
+  .final-quote {
+    text-align: center;
+    margin-top: 28px;
+    padding: 20px;
+    font-size: 16px;
+    color: #b0bec5;
+    line-height: 1.8;
+  }
+  .final-quote strong {
+    color: #4fc3f7;
+    font-size: 19px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>一稿多改：万能提示词公式实战</h1>
+  <p class="subtitle">同一个活动素材，四个完整提示词，四种不同用途的成品</p>
+
+  <!-- 万能公式 -->
+  <div class="formula-strip">
+    <div class="f-title">万能提示词公式（每个成品都严格按照这个公式写）</div>
+    <div class="f-items">
+      <div class="f-item"><strong>角色</strong> 你是谁</div>
+      <div class="f-item"><strong>任务</strong> 干什么</div>
+      <div class="f-item"><strong>要求</strong> 什么标准</div>
+      <div class="f-item"><strong>例子</strong> 参考什么</div>
+    </div>
+  </div>
+
+  <!-- 原始素材 -->
+  <div class="source-box">
+    <div class="source-title">📋 原始活动素材（四个成品共用同一份上下文）</div>
+    <div class="source-content">
+      时间：2026年9月5日下午｜地点：青浦综合保税区会议室｜参与：青浦海关+区商务委+23家跨境电商企业｜内容：综保区"新9条"政策宣讲，重点讲仓储分类监管、海外仓退税、简化账册｜企业反馈："以前看文件一头雾水，这次海外仓退税操作流程听完就能落地"
+    </div>
+  </div>
+
+  <!-- 成品1：新闻通稿 -->
+  <div class="output-card output-1">
+    <div class="output-header">
+      <div class="output-icon">📰</div>
+      <div>
+        <div class="output-name">成品一：新闻通稿</div>
+        <div class="output-purpose">对外发布·媒体供稿</div>
+      </div>
+    </div>
+    <div class="prompt-full">
+      <div class="prompt-label">完整提示词（角色+任务+要求+例子）：</div>
+      <div class="prompt-text">
+        <span class="role">你是一位有10年经验的政务新闻编辑，擅长写海关系统对外发布的新闻通稿。</span><br>
+        <span class="task">请根据以下活动素材，写一篇新闻通稿。</span><br>
+        <span class="req">要求：600字左右，标题简洁有力，正文分三段（导语、主体、结尾），语气客观严谨，突出政策红利和企业受益，不用"重磅""震惊"等夸张词。</span><br>
+        <span class="example">参考风格：海关总署网站发布的基层动态新闻。</span><br>
+        活动素材：{上面的原始素材}
+      </div>
+      <div class="prompt-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#ff8a65"></div>角色</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#81c784"></div>任务</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#64b5f6"></div>要求</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ba68c8"></div>例子</div>
+      </div>
+    </div>
+    <div class="result-section">
+      <div class="result-title">青浦海关送政策进企业 23家跨境电商企业现场受益</div>
+      <div class="result-body">
+        <p>9月5日下午，青浦海关联合青浦区商务委在青浦综合保税区举办综保区"新9条"政策专场宣讲会，区内23家跨境电商企业参加。</p>
+        <p>宣讲围绕<span class="highlight">仓储货物按状态分类监管、跨境电商出口海外仓退税、简化账册管理</span>三项核心政策，从出台背景、核心条款、适用范围三个方面进行系统解读，并现场解答企业实操问题。</p>
+        <p>"以前看政策文件一头雾水，这次海外仓退税的操作流程听完就能落地。"参会企业负责人表示。下一步，青浦海关将建立"一企一档"精准服务机制，确保政策红利切实转化为企业发展动力。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 成品2：内部工作动态 -->
+  <div class="output-card output-2">
+    <div class="output-header">
+      <div class="output-icon">📋</div>
+      <div>
+        <div class="output-name">成品二：内部工作动态</div>
+        <div class="output-purpose">向上汇报·内部留存</div>
+      </div>
+    </div>
+    <div class="prompt-full">
+      <div class="prompt-label">完整提示词（角色+任务+要求+例子）：</div>
+      <div class="prompt-text">
+        <span class="role">你是青浦海关办公室的文字秘书，擅长写向上级汇报的工作动态。</span><br>
+        <span class="task">请根据以下活动素材，写一篇内部工作动态。</span><br>
+        <span class="req">要求：400字以内，结构为"工作举措+工作成效+下一步"三部分，语气简洁务实，突出部门作为和具体数据，不用抒情和夸张表述。</span><br>
+        <span class="example">参考风格：海关系统内部简报的"工作动态"栏目。</span><br>
+        活动素材：{上面的原始素材}
+      </div>
+      <div class="prompt-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#ff8a65"></div>角色</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#81c784"></div>任务</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#64b5f6"></div>要求</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ba68c8"></div>例子</div>
+      </div>
+    </div>
+    <div class="result-section">
+      <div class="result-title">青浦海关联合区商务委开展综保区"新9条"政策宣讲</div>
+      <div class="result-body">
+        <p><strong>一、工作举措</strong>：9月5日，我关联合区商务委在综保区举办政策宣讲会，覆盖区内23家跨境电商企业，重点解读三项核心政策，现场解答实操问题12个。</p>
+        <p><strong>二、工作成效</strong>：企业政策知晓率显著提升，海外仓退税等操作难点得到现场解决，企业满意度100%。</p>
+        <p><strong>三、下一步</strong>：建立"一企一档"服务机制，持续跟踪政策落地情况，定期收集企业诉求。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 成品3：公众号推文 -->
+  <div class="output-card output-3">
+    <div class="output-header">
+      <div class="output-icon">📱</div>
+      <div>
+        <div class="output-name">成品三：公众号推文</div>
+        <div class="output-purpose">新媒体传播·企业服务</div>
+      </div>
+    </div>
+    <div class="prompt-full">
+      <div class="prompt-label">完整提示词（角色+任务+要求+例子）：</div>
+      <div class="prompt-text">
+        <span class="role">你是青浦海关微信公众号的小编，擅长写企业爱看的口语化推文。</span><br>
+        <span class="task">请根据以下活动素材，写一篇公众号推文。</span><br>
+        <span class="req">要求：标题口语化有吸引力，正文用emoji分点，500字以内，结尾加一句互动引导，语气亲切有温度，不用官话套话。</span><br>
+        <span class="example">参考风格："上海发布"公众号的企业服务类推文。</span><br>
+        活动素材：{上面的原始素材}
+      </div>
+      <div class="prompt-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#ff8a65"></div>角色</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#81c784"></div>任务</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#64b5f6"></div>要求</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ba68c8"></div>例子</div>
+      </div>
+    </div>
+    <div class="result-section">
+      <div class="result-title">政策送到家门口！这场宣讲会，跨境电商企业都说实用</div>
+      <div class="result-body">
+        <p>各位做跨境电商的小伙伴注意啦！最近青浦海关把综保区"新9条"政策直接送到了企业门口👇</p>
+        <p>🔹 <strong>讲了啥？</strong>仓储分类监管、海外仓退税、简化账册，都是天天要用的</p>
+        <p>🔹 <strong>企业怎么说？</strong>"以前看文件一头雾水，这次听完就能落地"</p>
+        <p>🔹 <strong>接下来呢？</strong>"一企一档"精准服务，政策红利不打折扣</p>
+        <p>💬 你在政策使用中遇到过什么问题？评论区聊聊，说不定下次宣讲会就讲你的问题～</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 成品4：政策解读 -->
+  <div class="output-card output-4">
+    <div class="output-header">
+      <div class="output-icon">📖</div>
+      <div>
+        <div class="output-name">成品四：政策解读</div>
+        <div class="output-purpose">企业服务·一图读懂</div>
+      </div>
+    </div>
+    <div class="prompt-full">
+      <div class="prompt-label">完整提示词（角色+任务+要求+例子）：</div>
+      <div class="prompt-text">
+        <span class="role">你是海关政策解读专家，擅长把公文语言翻译成企业听得懂的大白话。</span><br>
+        <span class="task">请根据以下活动素材中提到的三项政策，写一篇"一图读懂"式的政策解读文案。</span><br>
+        <span class="req">要求：每项政策用"大白话解释+对企业有什么用+怎么申请"三句话讲清楚，可以打比方，500字以内，不用专业术语。</span><br>
+        <span class="example">参考风格："中国政府网"的"一图读懂"系列。</span><br>
+        活动素材：{上面的原始素材}
+      </div>
+      <div class="prompt-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#ff8a65"></div>角色</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#81c784"></div>任务</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#64b5f6"></div>要求</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ba68c8"></div>例子</div>
+      </div>
+    </div>
+    <div class="result-section">
+      <div class="result-title">综保区"新9条"怎么用？跨境电商企业看这一篇就够了</div>
+      <div class="result-body">
+        <p><strong>📌 政策一：仓储货物按状态分类监管</strong></p>
+        <p>大白话：保税货和非保税货可以放一个仓库了，不用分开租。<span class="highlight">对企业有什么用？</span>省租金、省搬运。怎么申请：向海关提交仓储方案，审核通过后即可。</p>
+        <p><strong>📌 政策二：跨境电商出口海外仓退税</strong></p>
+        <p>大白话：货发到海外仓就能申请退税，不用等卖完。<span class="highlight">对企业有什么用？</span>资金回笼更快。怎么申请：凭出口报关单和海外仓证明材料办理。</p>
+        <p><strong>📌 政策三：简化账册管理</strong></p>
+        <p>大白话：账册从月报改成季报，核销周期更长。<span class="highlight">对企业有什么用？</span>少跑腿、少填表。怎么申请：在海关系统中变更账册类型即可。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="final-quote">
+    <strong>四个成品，用的是同一个素材、同一个公式，只是四要素填的内容不同。</strong><br>
+    角色决定语气，任务决定内容，要求决定标准，例子决定风格。<br>
+    这就是万能提示词公式的力量——学会一个公式，搞定所有文体。
+  </div>
+</div>
+</body>
+</html>

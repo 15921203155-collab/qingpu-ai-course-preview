@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>公众号封面图：三级对比（大图+差异标注）</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #0a1628;
+    color: #fff;
+    padding: 40px 20px;
+  }
+  .container { max-width: 1400px; margin: 0 auto; }
+  .page-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .page-title .section-num {
+    background: linear-gradient(135deg, #29b6f6, #4fc3f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 36px;
+  }
+  .page-subtitle {
+    color: #78909c;
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+  .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .img-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    flex-direction: column;
+  }
+  .img-card.l1 { border-top: 4px solid #c62828; }
+  .img-card.l2 { border-top: 4px solid #ef6c00; }
+  .img-card.l3 { border-top: 4px solid #2e7d32; }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .badge {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .l1 .badge { background: #c62828; }
+  .l2 .badge { background: #ef6c00; }
+  .l3 .badge { background: #2e7d32; }
+  .card-name { font-size: 18px; font-weight: 600; }
+  .card-desc { font-size: 13px; color: #90a4ae; }
+  .prompt {
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 12px;
+    color: #ffcc80;
+    line-height: 1.6;
+    border-left: 3px solid #ff9800;
+  }
+  .prompt .pl {
+    color: #78909c;
+    font-size: 11px;
+    margin-bottom: 4px;
+    font-family: inherit;
+  }
+  .img-wrap {
+    flex: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.1);
+    margin-bottom: 16px;
+  }
+  .img-wrap img {
+    width: 100%;
+    display: block;
+  }
+  .analysis {
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .l1 .analysis { background: rgba(198,40,40,0.15); color: #ef9a9a; }
+  .l2 .analysis { background: rgba(239,108,0,0.15); color: #ffcc80; }
+  .l3 .analysis { background: rgba(46,125,50,0.15); color: #a5d6a7; }
+  .conclusion {
+    background: linear-gradient(135deg, rgba(41,128,185,0.2), rgba(52,152,219,0.1));
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+    border: 1px solid rgba(52,152,219,0.3);
+  }
+  .conclusion h3 {
+    font-size: 22px;
+    color: #4fc3f7;
+    margin-bottom: 16px;
+  }
+  .conclusion p {
+    font-size: 16px;
+    color: #b0bec5;
+    line-height: 1.8;
+  }
+  .conclusion strong { color: #4fc3f7; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="page-title"><span class="section-num">2</span>公众号封面图：三级对比（大图+差异标注）</div>
+  <p class="page-subtitle">同一个活动，三种提问方式，三张完全不同的封面图——从"通用泛化"到"专业落地"到"内容匹配"</p>
+
+  <div class="compare-grid">
+    <!-- Level 1 -->
+    <div class="img-card l1">
+      <div class="card-header">
+        <div class="badge">1</div>
+        <div>
+          <div class="card-name">普通人随便说</div>
+          <div class="card-desc">有主题，不系统</div>
+        </div>
+      </div>
+      <div class="prompt">
+        <div class="pl">提示词：</div>
+        企业出海主题沙龙公众号封面图，横版，商务风格
+      </div>
+      <div class="img-wrap">
+        <img src="真实案例_8月28日/封面图_Level1_高清版.jpg" alt="Level1">
+      </div>
+      <div class="analysis">❌ 通用商务风格，地球+连线，看起来还行。但没有具体活动主题"e企聚势·数智扬帆"，没有时间地点，没有政策内容——放哪个活动上都能用，等于没特色。</div>
+    </div>
+
+    <!-- Level 2 -->
+    <div class="img-card l2">
+      <div class="card-header">
+        <div class="badge">2</div>
+        <div>
+          <div class="card-name">提示词工程</div>
+          <div class="card-desc">角色+任务+要求</div>
+        </div>
+      </div>
+      <div class="prompt">
+        <div class="pl">提示词：</div>
+        政务新媒体封面：横版2.35:1，深蓝渐变，左文字右视觉，主标题"e企聚势 数智扬帆"，副标题"共探企业出海新机遇"，右侧集装箱+飞机+地球
+      </div>
+      <div class="img-wrap">
+        <img src="真实案例_8月28日/封面图_Level2_高清版.jpg" alt="Level2">
+      </div>
+      <div class="analysis">✅ 构图专业、元素准确（地球+飞机+集装箱）、深蓝政务风，有了主题和风格。<br>⚠️ <strong>但注意：AI把主标题"数智扬帆"写成了"智智扬帆"</strong>——这是AI生图最常见的坑：中文字经常写错！必须人工检查每一个字。<br>另外还缺具体活动信息——时间、地点、政策内容都没有，还是"好看但不落地"。</div>
+    </div>
+
+    <!-- Level 3 -->
+    <div class="img-card l3">
+      <div class="card-header">
+        <div class="badge">3</div>
+        <div>
+          <div class="card-name">上下文工程</div>
+          <div class="card-desc">完整文章内容</div>
+        </div>
+      </div>
+      <div class="prompt">
+        <div class="pl">提示词+上下文：</div>
+        根据文章生成封面：8月28日青浦e通世界产业园企业出海沙龙，7位专家分享，重点是青浦海关九大措施。体现企业出海+跨境电商+政策支持+青浦
+      </div>
+      <div class="img-wrap">
+        <img src="真实案例_8月28日/封面图_Level3_高清版.jpg" alt="Level3">
+      </div>
+      <div class="analysis">🏆 内容最完整！有活动主题"e企聚势·数智扬帆"、时间地点"青浦e通世界产业园·8月28日"、三个政策标签"保税仓储/通关便利/离境即退税"，右侧会议室场景+投影世界地图。AI看到了完整文章内容，不是"猜"主题，是"理解"主题后生成的。</div>
+    </div>
+  </div>
+
+  <div class="conclusion">
+    <h3>同一个AI，三张图，天差地别</h3>
+    <p>差别在哪？<strong>不是AI变了，是你给的信息变了。</strong><br>
+    随便说 → 通用泛化，放哪都行<br>
+    用公式说清楚 → 专业落地，但可能有小错（要检查文字）<br>
+    给完整上下文 → 内容匹配，有细节有温度<br><br>
+    <strong>提示词工程告诉你"怎么说"，上下文工程告诉你"说多少"。</strong></p>
+  </div>
+</div>
+</body>
+</html>

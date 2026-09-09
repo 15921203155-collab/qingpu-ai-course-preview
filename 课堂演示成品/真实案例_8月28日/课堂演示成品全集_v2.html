@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课堂演示成品全集：8月28日企业出海沙龙·提示词工程实战</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #0a1628;
+    color: #e0e0e0;
+  }
+  .nav-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(10,22,40,0.95);
+    backdrop-filter: blur(10px);
+    padding: 12px 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 100;
+    border-bottom: 1px solid rgba(79,195,247,0.2);
+  }
+  .nav-bar .logo {
+    font-size: 16px;
+    font-weight: 700;
+    color: #4fc3f7;
+  }
+  .nav-bar .nav-links {
+    display: flex;
+    gap: 16px;
+    flex: 1;
+  }
+  .nav-bar .nav-links a {
+    color: #78909c;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+  }
+  .nav-bar .nav-links a:hover { color: #4fc3f7; }
+  .page {
+    padding: 80px 40px 60px;
+  }
+  .page-cover {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 50%, #0a1628 100%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .page-cover h1 {
+    font-size: 48px;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .page-cover .subtitle {
+    font-size: 20px;
+    color: #78909c;
+    margin-bottom: 40px;
+  }
+  .page-cover .case-info {
+    display: inline-block;
+    background: rgba(79,195,247,0.1);
+    border: 1px solid rgba(79,195,247,0.3);
+    border-radius: 12px;
+    padding: 24px 32px;
+    text-align: left;
+    max-width: 650px;
+  }
+  .page-cover .case-info .label {
+    color: #4fc3f7;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .page-cover .case-info .title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  .page-cover .case-info .desc {
+    font-size: 14px;
+    color: #b0bec5;
+    line-height: 1.8;
+  }
+  .page-cover .case-info .source {
+    font-size: 12px;
+    color: #78909c;
+    margin-top: 12px;
+  }
+  .page-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .page-subtitle {
+    font-size: 16px;
+    color: #78909c;
+    margin-bottom: 30px;
+  }
+  .section-num {
+    display: inline-block;
+    background: linear-gradient(135deg, #1976d2, #42a5f5);
+    color: #fff;
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: 700;
+    margin-right: 12px;
+  }
+
+  /* 新闻稿三级对比 - 完整显示 */
+  .news-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .news-card {
+    background: rgba(255,255,255,0.04);
+    border-radius: 14px;
+    padding: 20px;
+    border-top: 5px solid;
+  }
+  .news-card.l1 { border-color: #ef6c00; }
+  .news-card.l2 { border-color: #1976d2; }
+  .news-card.l3 { border-color: #2e7d32; }
+  .news-card .card-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 14px;
+  }
+  .news-card .badge {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; color: #fff; flex-shrink: 0;
+  }
+  .news-card.l1 .badge { background: #ef6c00; }
+  .news-card.l2 .badge { background: #1976d2; }
+  .news-card.l3 .badge { background: #2e7d32; }
+  .news-card .card-name { font-size: 16px; font-weight: 600; }
+  .news-card .card-desc { font-size: 11px; color: #78909c; }
+  .news-card .prompt {
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 14px;
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 11px;
+    color: #ffcc80;
+    line-height: 1.6;
+  }
+  .news-card .prompt .pl { color: #78909c; font-size: 10px; margin-bottom: 4px; }
+  .news-card .full-text {
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 12px;
+    line-height: 1.8;
+    color: #b0bec5;
+  }
+  .news-card .full-text .t {
+    font-weight: 600; color: #e0e0e0;
+    margin-bottom: 10px; font-size: 13px;
+  }
+  .news-card .full-text p { margin-bottom: 8px; }
+  .news-card .analysis {
+    margin-top: 12px;
+    font-size: 11px;
+    line-height: 1.6;
+    padding: 10px;
+    border-radius: 6px;
+  }
+  .news-card.l1 .analysis { background: rgba(239,108,0,0.12); color: #ffcc80; }
+  .news-card.l2 .analysis { background: rgba(25,118,210,0.12); color: #90caf9; }
+  .news-card.l3 .analysis { background: rgba(46,125,50,0.12); color: #a5d6a7; }
+
+  /* 封面图三级对比 - 大图+标注 */
+  .img-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+  .img-card {
+    background: rgba(255,255,255,0.04);
+    border-radius: 14px;
+    padding: 18px;
+    border-top: 5px solid;
+  }
+  .img-card.l1 { border-color: #ef6c00; }
+  .img-card.l2 { border-color: #1976d2; }
+  .img-card.l3 { border-color: #2e7d32; }
+  .img-card .card-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 12px;
+  }
+  .img-card .badge {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; color: #fff; flex-shrink: 0;
+  }
+  .img-card.l1 .badge { background: #ef6c00; }
+  .img-card.l2 .badge { background: #1976d2; }
+  .img-card.l3 .badge { background: #2e7d32; }
+  .img-card .card-name { font-size: 16px; font-weight: 600; }
+  .img-card .card-desc { font-size: 11px; color: #78909c; }
+  .img-card .prompt {
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 10px;
+    color: #ffcc80;
+    line-height: 1.5;
+  }
+  .img-card .prompt .pl { color: #78909c; font-size: 9px; margin-bottom: 3px; }
+  .img-card .img-wrap {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.1);
+    margin-bottom: 12px;
+  }
+  .img-card .img-wrap img {
+    width: 100%;
+    display: block;
+  }
+  .img-card .diff-mark {
+    position: absolute;
+    border: 3px solid #ff5252;
+    border-radius: 4px;
+    animation: pulse 2s infinite;
+  }
+  .img-card .diff-mark::after {
+    content: attr(data-label);
+    position: absolute;
+    top: -24px;
+    left: 0;
+    background: #ff5252;
+    color: #fff;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  .img-card .analysis {
+    font-size: 11px;
+    line-height: 1.6;
+    padding: 10px;
+    border-radius: 6px;
+  }
+  .img-card.l1 .analysis { background: rgba(239,108,0,0.12); color: #ffcc80; }
+  .img-card.l2 .analysis { background: rgba(25,118,210,0.12); color: #90caf9; }
+  .img-card.l3 .analysis { background: rgba(46,125,50,0.12); color: #a5d6a7; }
+
+  /* 一稿多改 */
+  .multi-output {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .multi-card {
+    background: rgba(255,255,255,0.04);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .multi-card .m-header {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .multi-card .m-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .multi-card.o1 .m-header { background: rgba(198,40,40,0.12); }
+  .multi-card.o1 .m-icon { background: #c62828; }
+  .multi-card.o2 .m-header { background: rgba(25,118,210,0.12); }
+  .multi-card.o2 .m-icon { background: #1976d2; }
+  .multi-card.o3 .m-header { background: rgba(46,125,50,0.12); }
+  .multi-card.o3 .m-icon { background: #2e7d32; }
+  .multi-card.o4 .m-header { background: rgba(123,31,162,0.12); }
+  .multi-card.o4 .m-icon { background: #7b1fa2; }
+  .multi-card .m-name { font-size: 17px; font-weight: 600; }
+  .multi-card .m-purpose { font-size: 12px; color: #78909c; }
+  .multi-card .m-prompt {
+    padding: 10px 20px;
+    background: rgba(0,0,0,0.2);
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 10px;
+    color: #ffcc80;
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .multi-card .m-prompt .pl { color: #78909c; font-size: 9px; margin-bottom: 3px; }
+  .multi-card .m-body {
+    padding: 16px 20px;
+    font-size: 12px;
+    line-height: 1.8;
+    color: #b0bec5;
+  }
+  .multi-card .m-body .t {
+    font-weight: 600; color: #e0e0e0;
+    margin-bottom: 12px; font-size: 14px;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .multi-card .m-body p { margin-bottom: 8px; }
+
+  /* 海报 */
+  .poster-show {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .poster-img-wrap {
+    text-align: center;
+  }
+  .poster-img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  }
+  .poster-detail h3 {
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .poster-detail .full-prompt {
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 12px;
+    color: #ffcc80;
+    line-height: 1.8;
+  }
+  .poster-detail .full-prompt .pl { color: #78909c; font-size: 11px; margin-bottom: 6px; }
+  .poster-detail .full-prompt .role { color: #ff8a65; }
+  .poster-detail .full-prompt .task { color: #81c784; }
+  .poster-detail .full-prompt .req { color: #64b5f6; }
+  .poster-detail .full-prompt .ex { color: #ba68c8; }
+  .poster-detail .note {
+    font-size: 13px;
+    color: #ffab91;
+    line-height: 1.7;
+    padding: 12px;
+    background: rgba(239,108,0,0.1);
+    border-radius: 8px;
+  }
+
+  /* 公众号成品 */
+  .wechat-show {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    align-items: flex-start;
+  }
+  .wechat-phone {
+    width: 420px;
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.4);
+    flex-shrink: 0;
+  }
+  .wechat-h {
+    background: #ededed;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  .wechat-h .b { font-size: 22px; color: #333; }
+  .wechat-h .t { font-size: 16px; font-weight: 600; flex: 1; text-align: center; color: #333; }
+  .wechat-h .m { font-size: 22px; color: #333; }
+  .wechat-cover { width: 100%; display: block; }
+  .wechat-c { padding: 20px; }
+  .wechat-title {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #1a1a1a;
+    margin-bottom: 14px;
+  }
+  .wechat-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #eee;
+  }
+  .wechat-av {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1976d2, #42a5f5);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 14px; font-weight: 600;
+  }
+  .wechat-mi { flex: 1; }
+  .wechat-mn { font-size: 14px; color: #333; font-weight: 500; }
+  .wechat-mt { font-size: 12px; color: #999; margin-top: 2px; }
+  .wechat-f {
+    background: #07c160;
+    color: #fff;
+    padding: 5px 14px;
+    border-radius: 14px;
+    font-size: 13px;
+  }
+  .wechat-body {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+  }
+  .wechat-body p { margin-bottom: 14px; }
+  .wechat-body .lead { font-size: 17px; font-weight: 500; color: #1a1a1a; }
+  .wechat-body .hl {
+    background: linear-gradient(to bottom, transparent 60%, #fff3cd 60%);
+    padding: 0 2px;
+  }
+  .wechat-pt {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 12px;
+    border-left: 4px solid #1976d2;
+  }
+  .wechat-pt .ptt { font-size: 15px; font-weight: 600; color: #1976d2; margin-bottom: 4px; }
+  .wechat-pt .ptd { font-size: 14px; color: #555; line-height: 1.7; }
+  .wechat-info {
+    width: 100%;
+    border-radius: 10px;
+    margin: 16px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .wechat-quote {
+    background: #f0f7ff;
+    border-radius: 10px;
+    padding: 14px;
+    margin: 16px 0;
+    font-size: 14px;
+    color: #1976d2;
+    line-height: 1.7;
+    border-left: 4px solid #1976d2;
+  }
+  .wechat-interact {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .wechat-interact .q { font-size: 15px; font-weight: 600; color: #333; margin-bottom: 6px; }
+  .wechat-interact .a { font-size: 13px; color: #666; }
+  .wechat-tags {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .wechat-tag {
+    background: #f0f0f0;
+    color: #666;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+  }
+  .wechat-side {
+    flex: 1;
+    max-width: 400px;
+  }
+  .wechat-side h3 {
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .wechat-side .feat {
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  .wechat-side .feat .ft {
+    font-size: 15px;
+    font-weight: 600;
+    color: #4fc3f7;
+    margin-bottom: 6px;
+  }
+  .wechat-side .feat .fd {
+    font-size: 13px;
+    color: #b0bec5;
+    line-height: 1.6;
+  }
+
+  /* 总结 */
+  .final-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 50%, #0a1628 100%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .final-page h2 {
+    font-size: 36px;
+    color: #4fc3f7;
+    margin-bottom: 30px;
+  }
+  .final-page .sum-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto 30px;
+  }
+  .final-page .sum-item {
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: left;
+  }
+  .final-page .sum-item .icon { font-size: 32px; margin-bottom: 12px; }
+  .final-page .sum-item .st {
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .final-page .sum-item .sd {
+    font-size: 13px;
+    color: #b0bec5;
+    line-height: 1.7;
+  }
+  .final-page .quote {
+    font-size: 24px;
+    color: #fff;
+    font-style: italic;
+    margin-top: 30px;
+    line-height: 1.6;
+  }
+  .final-page .qs {
+    font-size: 14px;
+    color: #78909c;
+    margin-top: 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <div class="logo">课堂演示成品全集</div>
+  <div class="nav-links">
+    <a href="#cover">封面</a>
+    <a href="#news">新闻稿三级对比</a>
+    <a href="#cover-img">封面图三级对比</a>
+    <a href="#multi">一稿多改</a>
+    <a href="#poster">政策海报</a>
+    <a href="#wechat">公众号成品</a>
+    <a href="#final">总结</a>
+  </div>
+</div>
+
+<!-- 封面 -->
+<div class="page page-cover" id="cover">
+  <h1>课堂演示成品全集</h1>
+  <div class="subtitle">8月28日真实企业出海沙龙 · 提示词工程全流程实战</div>
+  <div class="case-info">
+    <div class="label">📋 真实案例（有公开来源）</div>
+    <div class="title">"e企聚势·数智扬帆"共探企业出海新机遇主题沙龙</div>
+    <div class="desc">
+      时间：2026年8月28日下午｜地点：青浦·e通世界产业园<br>
+      主办：青浦区新联会、e通世界产业园｜支持：青浦区人民检察院<br>
+      性质：上海统一战线服务青年创新创业工作年度第40个矩阵项目<br>
+      内容：7场主题分享，覆盖跨境电商、涉外法律、跨境金融<br>
+      嘉宾：引航咨询合伙人田勇、亚马逊全球开店高级经理阿肯、上海跨境公服业务总监蒋启铖等
+    </div>
+    <div class="source">来源：上观新闻 2026-09-04</div>
+  </div>
+</div>
+
+<!-- 新闻稿三级对比 - 完整显示 -->
+<div class="page" id="news">
+  <div class="page-title"><span class="section-num">1</span>新闻稿：三级对比（完整内容）</div>
+  <div class="page-subtitle">同一个活动，三种提问方式，三种完全不同的结果——所有文字完整展示</div>
+  <div class="news-compare">
+    <div class="news-card l1">
+      <div class="card-header">
+        <div class="badge">1</div>
+        <div>
+          <div class="card-name">普通人随便说</div>
+          <div class="card-desc">有主题，不具体</div>
+        </div>
+      </div>
+      <div class="prompt">
+        <div class="pl">提示词：</div>
+        帮我写一篇企业出海沙龙的新闻稿
+      </div>
+      <div class="full-text">
+        <div class="t">企业出海主题沙龙在青浦举行</div>
+        <p>近日，一场企业出海主题沙龙在青浦举行。活动邀请了多位专家分享企业出海经验，内容涵盖跨境电商、涉外法律、跨境金融等领域。</p>
+        <p>参会企业代表表示收获颇丰。此次活动为企业出海提供了有益参考，受到广泛好评。</p>
+      </div>
+      <div class="analysis">❌ 没有具体时间、地点、主办单位、活动内容、嘉宾信息，全文只有100多字，太泛，像万能模板。</div>
+    </div>
+    <div class="news-card l2">
+      <div class="card-header">
+        <div class="badge">2</div>
+        <div>
+          <div class="card-name">提示词工程</div>
+          <div class="card-desc">角色+任务+要求</div>
+        </div>
+      </div>
+      <div class="prompt">
+        <div class="pl">提示词：</div>
+        你是10年经验政务新闻编辑。写一篇"e企聚势·数智扬帆"企业出海沙龙新闻稿：600字，分三段（导语/主体/结尾），语气客观严谨，突出跨境电商和政策支持。
+      </div>
+      <div class="full-text">
+        <div class="t">"e企聚势·数智扬帆"企业出海主题沙龙在青浦举行</div>
+        <p>8月28日下午，"e企聚势·数智扬帆"共探企业出海新机遇主题沙龙在青浦举行。本次活动由青浦区新联会与e通世界产业园联合主办，旨在为青年创业者及成长型企业搭建拥抱全球市场的赋能平台。</p>
+        <p>活动现场，来自跨境电商平台、涉外法律服务、咨询机构、跨境金融等领域的专家围绕企业出海痛点、机遇与落地路径展开分享。青浦综合保税区招商发展部相关负责同志介绍了青浦综保区及跨境电商发展情况，解读了青浦海关支持综保区扩能提质的九大措施，为企业深耕跨境赛道提供政策参考。亚马逊全球开店、上海跨境公服阳光跨境平台等机构代表分别分享了出海运营攻略和合规政策要点。</p>
+        <p>参会企业代表纷纷表示，此次沙龙内容实、针对性强，为企业出海提供了清晰的路径参考。下一步，主办方将持续搭建高价值交流平台，助力更多企业扬帆海外市场。</p>
+      </div>
+      <div class="analysis">✅ 角色准确、主题具体、结构清晰、字数达标、语气严谨。同一个AI，差别就在提示词里。</div>
+    </div>
+    <div class="news-card l3">
+      <div class="card-header">
+        <div class="badge">3</div>
+        <div>
+          <div class="card-name">上下文工程</div>
+          <div class="card-desc">完整活动素材</div>
+        </div>
+      </div>
+      <div class="prompt">
+        <div class="pl">提示词+完整素材：</div>
+        提供完整活动素材：时间、地点、主办、7场分享嘉宾姓名职务、企业反馈。写新闻通稿，引用1-2位嘉宾观点。
+      </div>
+      <div class="full-text">
+        <div class="t">"e企聚势·数智扬帆"企业出海沙龙在青浦举行 专家齐聚共探跨境电商新机遇</div>
+        <p>8月28日下午，"e企聚势·数智扬帆"共探企业出海新机遇主题沙龙在青浦e通世界产业园举行。本次活动是上海统一战线服务青年创新创业工作年度第40个矩阵项目，由青浦区新联会与e通世界产业园联合主办，青浦区人民检察院提供支持，吸引了跨境电商、涉外法律、跨境金融等领域专家及企业家代表近百人参加。</p>
+        <p>活动现场，七场主题分享层层递进。引航咨询合伙人田勇结合当下全球经济格局与行业大数据，系统梳理了中国企业出海的发展历程与当下态势；亚马逊全球开店上海区域拓展高级经理阿肯针对新手卖家开店难点，分享了平台最新扶持政策与热门站点布局；上海跨境公服阳光跨境平台业务总监蒋启铖深度解读了跨境电商出海最新合规政策与实操要点。青浦综合保税区招商发展部相关负责同志重点介绍了青浦综保区政策红利与产业载体优势，详细解读了青浦海关支持综保区扩能提质的九大措施，为企业深耕跨境赛道提供了全新发展路径。青浦区人民检察院和泰隆银行相关专家还分别就出海法治风险防范和跨境金融服务进行了分享。</p>
+        <p>"干货满满、不虚此行。"不少参会企业代表在互动交流环节与专家互留联系方式，表示此次沙龙为企业出海提供了可落地的实操参考。主办方表示，将持续搭建此类高价值交流平台，以"数智+服务"双轮驱动，助力更多青年创业者扬帆海外市场。</p>
+      </div>
+      <div class="analysis">🏆 有嘉宾姓名职务、具体数据（近百人、7场分享）、企业直接引语。不是"编"新闻，是根据素材"写"新闻，专业度完全不同。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 封面图三级对比 - 大图+红框标注 -->
+<div class="page" id="cover-img">
+  <div class="page-title"><span class="section-num">2</span>公众号封面图：三级对比（大图+差异标注）</div>
+  <div class="page-subtitle">红框标注AI生成的错误——这就是为什么必须人工审核</div>
+  <div class="img-compare">
+    <div class="img-card l1">
+      <div class="card-header">
+        <div class="badge">1</div>
+        <div>
+          <div class="card-name">普通人随便说</div>
+          <div class="card-desc">有主题，不系统</div>
+        </div>
+      </div>
+      <div class="prompt">
+        <div class="pl">提示词：</div>
+        企业出海主题沙龙公众号封面图，横版，商务风格
+      </div>
+      <div class="img-wrap">
+        <img src="封面图_Level1_普通人.jpg" alt="Level1">
+        <div class="diff-mark" data-label="❌ 文字错误" style="top: 5%; left: 25%; width: 50%; height: 15%;"></div>
+      </div>
+      <div class="analysis">❌ 副标题文字错误（"2029年出海主题会公众"），整体像会议现场照片，没有活动特色，没有"e企聚势·数智扬帆"主题。</div>
+    </div>
+    <div class="img-card l2">
+      <div class="card-header">
+        <div class="badge">2</div>
+        <div>
+          <div class="card-name">提示词工程</div>
+          <div class="card-desc">角色+任务+要求</div>
+        </div>
+      </div>
+      <div class="prompt">
+        <div class="pl">提示词：</div>
+        政务新媒体封面：横版2.35:1，深蓝渐变，左文字右视觉，主标题"e企聚势 数智扬帆"，副标题"共探企业出海新机遇"，右侧集装箱+飞机+地球
+      </div>
+      <div class="img-wrap">
+        <img src="封面图_Level2_提示词工程.jpg" alt="Level2">
+        <div class="diff-mark" data-label="❌ 数智→智智" style="top: 20%; left: 10%; width: 35%; height: 20%;"></div>
+      </div>
+      <div class="analysis">⚠️ 构图专业、元素准确、深蓝政务风。但主标题文字有错（"数智"写成"智智"）——AI画中文经常错，必须人工检查修改。</div>
+    </div>
+    <div class="img-card l3">
+      <div class="card-header">
+        <div class="badge">3</div>
+        <div>
+          <div class="card-name">上下文工程</div>
+          <div class="card-desc">完整文章内容</div>
+        </div>
+      </div>
+      <div class="prompt">
+        <div class="pl">提示词+上下文：</div>
+        根据文章生成封面：8月28日青浦e通世界产业园企业出海沙龙，7位专家分享，重点是青浦海关九大措施。体现企业出海+跨境电商+政策支持+青浦
+      </div>
+      <div class="img-wrap">
+        <img src="封面图_Level3_上下文工程.jpg" alt="Level3">
+        <div class="diff-mark" data-label="❌ 数智→智智" style="top: 8%; left: 20%; width: 40%; height: 18%;"></div>
+      </div>
+      <div class="analysis">✅ 有会议室场景、企业家交流、副标题含"青浦"，配图和文章内容高度匹配。AI看到了完整内容，不是"猜"主题。（文字仍有小错，需人工修）</div>
+    </div>
+  </div>
+</div>
+
+<!-- 一稿多改 - 完整显示 -->
+<div class="page" id="multi">
+  <div class="page-title"><span class="section-num">3</span>一稿多改：四种用途成品（完整内容）</div>
+  <div class="page-subtitle">同一个素材，改提示词的受众和语气，20分钟出四种成品——所有文字完整展示</div>
+  <div class="multi-output">
+    <div class="multi-card o1">
+      <div class="m-header">
+        <div class="m-icon">📰</div>
+        <div>
+          <div class="m-name">成品一：新闻通稿</div>
+          <div class="m-purpose">对外发布·媒体供稿</div>
+        </div>
+      </div>
+      <div class="m-prompt">
+        <div class="pl">提示词：你是10年政务新闻编辑｜写新闻通稿｜600字三段式客观严谨｜参考海关总署网站风格</div>
+      </div>
+      <div class="m-body">
+        <div class="t">"e企聚势·数智扬帆"企业出海沙龙在青浦举行</div>
+        <p>8月28日下午，"e企聚势·数智扬帆"共探企业出海新机遇主题沙龙在青浦e通世界产业园举行。本次活动是上海统一战线服务青年创新创业工作年度第40个矩阵项目，由青浦区新联会与e通世界产业园联合主办，青浦区人民检察院提供支持。</p>
+        <p>活动现场，七场主题分享层层递进。引航咨询合伙人田勇结合全球经济格局与行业大数据，系统梳理了中国企业出海的发展历程与当下态势；亚马逊全球开店上海区域拓展高级经理阿肯针对新手卖家开店难点，分享了平台最新扶持政策与热门站点布局；上海跨境公服阳光跨境平台业务总监蒋启铖深度解读了跨境电商出海最新合规政策与实操要点。青浦综合保税区招商发展部相关负责同志重点介绍了青浦综保区政策红利与产业载体优势，详细解读了青浦海关支持综保区扩能提质的九大措施。</p>
+        <p>"干货满满、不虚此行。"不少参会企业代表在互动交流环节与专家互留联系方式。主办方表示，将持续搭建此类高价值交流平台，以"数智+服务"双轮驱动，助力更多青年创业者扬帆海外市场。</p>
+      </div>
+    </div>
+    <div class="multi-card o2">
+      <div class="m-header">
+        <div class="m-icon">📋</div>
+        <div>
+          <div class="m-name">成品二：内部工作动态</div>
+          <div class="m-purpose">向上汇报·内部留存</div>
+        </div>
+      </div>
+      <div class="m-prompt">
+        <div class="pl">提示词：你是区委统战部文字秘书｜写工作动态｜400字以内举措+成效+下一步｜参考统战系统内部简报</div>
+      </div>
+      <div class="m-body">
+        <div class="t">青浦区新联会联合e通世界产业园举办企业出海主题沙龙</div>
+        <p><strong>一、工作举措：</strong>8月28日，区新联会联合e通世界产业园举办"e企聚势·数智扬帆"企业出海主题沙龙，作为上海统一战线服务青年创新创业工作年度第40个矩阵项目，邀请引航咨询、亚马逊全球开店、上海跨境公服等7位跨境电商、涉外法律、跨境金融领域专家作主题分享，覆盖企业近百家。</p>
+        <p><strong>二、工作成效：</strong>活动聚焦企业出海痛点与落地路径，现场解读青浦海关支持综保区扩能提质九大措施，企业与专家对接成效显著，多家企业表示将进一步深化合作，企业满意度100%。</p>
+        <p><strong>三、下一步：</strong>持续搭建高价值交流平台，完善跨境产业生态，为青年创业者提供政策对接、资源链接、产业赋能全方位支撑，推动统一战线资源优势转化为服务青年创新创业的切实行动。</p>
+      </div>
+    </div>
+    <div class="multi-card o3">
+      <div class="m-header">
+        <div class="m-icon">📱</div>
+        <div>
+          <div class="m-name">成品三：公众号推文</div>
+          <div class="m-purpose">新媒体传播·企业服务</div>
+        </div>
+      </div>
+      <div class="m-prompt">
+        <div class="pl">提示词：你是公众号小编｜写口语化推文｜emoji分点+结尾互动｜参考"上海发布"风格</div>
+      </div>
+      <div class="m-body">
+        <div class="t">企业出海怎么破局？这场沙龙把答案送到了青浦企业家门口👇</div>
+        <p>做跨境电商的小伙伴注意啦！8月28日，一场超实用的企业出海沙龙在青浦e通世界产业园举行～</p>
+        <p>这场名为"e企聚势·数智扬帆"的主题沙龙，是上海统一战线服务青年创新创业工作年度第40个矩阵项目，由青浦区新联会与e通世界产业园联合主办。</p>
+        <p>🔹 <strong>讲了啥？</strong>7位专家轮番上阵，从出海趋势到平台运营，从合规政策到金融服务，全链条覆盖！引航咨询合伙人田勇、亚马逊全球开店高级经理阿肯、上海跨境公服业务总监蒋启铖……都是行业内的实战派。</p>
+        <p>🔹 <strong>重点来了！</strong>青浦综合保税区招商发展部现场解读了<strong>青浦海关支持综保区扩能提质的九大措施</strong>，跨境电商数智化监管、保税检测先行先试、守信激励提档升级……政策红利直接送到家门口！</p>
+        <p>🔹 <strong>企业怎么说？</strong>"干货满满、不虚此行"，不少企业当场和专家互留联系方式，期待后续合作。</p>
+        <p>💬 你在企业出海中遇到过什么难题？评论区聊聊，说不定下次沙龙就讲你的问题～</p>
+      </div>
+    </div>
+    <div class="multi-card o4">
+      <div class="m-header">
+        <div class="m-icon">📖</div>
+        <div>
+          <div class="m-name">成品四：政策解读</div>
+          <div class="m-purpose">企业服务·一图读懂</div>
+        </div>
+      </div>
+      <div class="m-prompt">
+        <div class="pl">提示词：你是政策解读专家｜写一图读懂｜大白话+对企业有什么用+怎么申请｜参考中国政府网风格</div>
+      </div>
+      <div class="m-body">
+        <div class="t">青浦海关"新9条"怎么用？出海企业看这一篇就够了</div>
+        <p><strong>📌 措施一：跨境电商数智化监管</strong></p>
+        <p><strong>大白话：</strong>在综保区建跨境电商出口运抵区，探索主副双卡和前置查验平台，实现"一域通内外，出区即出海"。</p>
+        <p><strong>对企业有什么用？</strong>通关更快、查验更准，货物从综保区出去直接就能发往海外，不用再辗转多个环节。</p>
+        <p><strong>怎么申请？</strong>企业向青浦海关提交跨境电商出口业务申请，审核通过后即可享受便利化监管。</p>
+        <p><strong>📌 措施二：保税检测先行先试</strong></p>
+        <p><strong>大白话：</strong>在综保区里可以开展保税检测业务，不用把货物运到区外检测。</p>
+        <p><strong>对企业有什么用？</strong>检测成本更低、周期更短，尤其适合航空发动机、精密仪器等高端制造企业。</p>
+        <p><strong>怎么申请？</strong>企业向海关提交保税检测业务方案，明确检测范围和流程，审核通过后开展。</p>
+        <p><strong>📌 措施三：守信激励提档升级</strong></p>
+        <p><strong>大白话：</strong>信用好的企业，免担保范围从分送集报扩展到外发加工、出区检测、出区维修。</p>
+        <p><strong>对企业有什么用？</strong>资金占用更少、通关更便利，进入"信用高—享惠多—发展好"的良性循环。</p>
+        <p><strong>怎么申请？</strong>企业通过海关信用认证成为高级认证企业，即可自动享受相关便利措施。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 政策海报 -->
+<div class="page" id="poster">
+  <div class="page-title"><span class="section-num">4</span>政策宣传海报：提示词工程实战</div>
+  <div class="page-subtitle">用完整公式（角色+任务+要求+例子）生成的海报，含完整提示词</div>
+  <div class="poster-show">
+    <div class="poster-img-wrap">
+      <img class="poster-img" src="政策宣传海报.jpg" alt="政策宣传海报">
+    </div>
+    <div class="poster-detail">
+      <h3>生成这张海报的完整提示词</h3>
+      <div class="full-prompt">
+        <div class="pl">【角色】</div>
+        <span class="role">你是政务视觉设计师，擅长设计海关系统政策宣传海报。</span><br><br>
+        <div class="pl">【任务】</div>
+        <span class="task">为"青浦海关支持综保区扩能提质九大措施"设计一张政策宣传海报。</span><br><br>
+        <div class="pl">【要求】</div>
+        <span class="req">竖版，深蓝政务风格，顶部标题文字"青浦海关支持综保区扩能提质九大措施"，副标题"政策红利 企业出海更顺"，中间三个圆形图标分别代表：跨境电商数智化监管、保税检测先行先试、守信激励提档升级，每个图标下方有简短说明，底部"青浦海关 2026"，简洁大气，专业政务风格。</span><br><br>
+        <div class="pl">【例子】</div>
+        <span class="ex">参考风格：海关总署发布的政策宣传海报。</span>
+      </div>
+      <div class="note">
+        ⚠️ 注意：AI生成的海报文字基本准确，但仍需人工核对——AI画中文经常出错（比如前面封面图的"数智"写成"智智"）。这就是为什么"AI出初稿，人工做终审"是政务宣传的铁律。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 公众号成品 -->
+<div class="page" id="wechat">
+  <div class="page-title"><span class="section-num">5</span>公众号排版完整成品</div>
+  <div class="page-subtitle">从封面图到文中配图到互动区，完整的一篇公众号推文——所有内容完整展示</div>
+  <div class="wechat-show">
+    <div class="wechat-phone">
+      <div class="wechat-h">
+        <span class="b">‹</span>
+        <span class="t">青浦统战</span>
+        <span class="m">⋯</span>
+      </div>
+      <img class="wechat-cover" src="封面图_Level3_上下文工程.jpg" alt="封面图">
+      <div class="wechat-c">
+        <div class="wechat-title">企业出海怎么破局？这场沙龙把答案送到了青浦企业家门口👇</div>
+        <div class="wechat-meta">
+          <div class="wechat-av">青</div>
+          <div class="wechat-mi">
+            <div class="wechat-mn">青浦统战</div>
+            <div class="wechat-mt">2026-08-29 09:00 · 上海</div>
+          </div>
+          <div class="wechat-f">关注</div>
+        </div>
+        <div class="wechat-body">
+          <p class="lead">做跨境电商的小伙伴注意啦！8月28日，一场超实用的企业出海沙龙在青浦e通世界产业园举行～</p>
+          <p>这场名为<span class="hl">"e企聚势·数智扬帆"</span>的主题沙龙，是上海统一战线服务青年创新创业工作年度第40个矩阵项目，由青浦区新联会与e通世界产业园联合主办，青浦区人民检察院提供支持。</p>
+          <div class="wechat-pt">
+            <div class="ptt">🔹 讲了啥？7位专家轮番上阵</div>
+            <div class="ptd">从出海趋势到平台运营，从合规政策到金融服务，全链条覆盖！引航咨询合伙人田勇、亚马逊全球开店高级经理阿肯、上海跨境公服业务总监蒋启铖……都是行业内的实战派。</div>
+          </div>
+          <div class="wechat-pt">
+            <div class="ptt">🔹 重点来了！政策红利送到家门口</div>
+            <div class="ptd">青浦综合保税区招商发展部现场解读了<span class="hl">青浦海关支持综保区扩能提质的九大措施</span>，跨境电商数智化监管、保税检测先行先试、守信激励提档升级……企业最关心的政策，一次讲透。</div>
+          </div>
+          <img class="wechat-info" src="文中配图_政策要点.jpg" alt="政策要点">
+          <div class="wechat-pt">
+            <div class="ptt">🔹 企业怎么说？干货满满、不虚此行</div>
+            <div class="ptd">互动交流环节气氛热烈，不少企业代表当场和专家互留联系方式。"以前看政策文件一头雾水，这次听完就能落地。"一位参会企业负责人说。</div>
+          </div>
+          <div class="wechat-quote">
+            💡 主办方表示，将持续搭建此类高价值交流平台，以"数智+服务"双轮驱动，助力更多青年创业者扬帆海外市场。
+          </div>
+          <div class="wechat-interact">
+            <div class="q">💬 你在企业出海中遇到过什么难题？</div>
+            <div class="a">评论区聊聊，说不定下次沙龙就讲你的问题～</div>
+          </div>
+          <div class="wechat-tags">
+            <span class="wechat-tag">#企业出海</span>
+            <span class="wechat-tag">#跨境电商</span>
+            <span class="wechat-tag">#青浦综保区</span>
+            <span class="wechat-tag">#政策解读</span>
+            <span class="wechat-tag">#青年创业</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wechat-side">
+      <h3>这篇推文包含什么</h3>
+      <div class="feat">
+        <div class="ft">🖼️ 封面图</div>
+        <div class="fd">用上下文工程生成，体现活动场景和青浦元素，和文章内容高度匹配</div>
+      </div>
+      <div class="feat">
+        <div class="ft">📝 口语化正文</div>
+        <div class="fd">emoji分点，不用官话套话，企业爱看。有具体嘉宾姓名和职务，不是空泛描述</div>
+      </div>
+      <div class="feat">
+        <div class="ft">📊 文中配图</div>
+        <div class="fd">政策要点信息图，三项核心政策一目了然，图文并茂提升阅读体验</div>
+      </div>
+      <div class="feat">
+        <div class="ft">💬 互动引导</div>
+        <div class="fd">结尾提问，引导评论区互动，提升传播和 engagement</div>
+      </div>
+      <div class="feat">
+        <div class="ft">🏷️ 话题标签</div>
+        <div class="fd">5个话题标签，提升搜索曝光和话题聚合</div>
+      </div>
+      <div class="feat">
+        <div class="ft">⏱️ 制作时间</div>
+        <div class="fd">从原始素材到完整成品，AI辅助下约20分钟完成（含人工审核修改）</div>
+      </div>
+      <div class="feat">
+        <div class="ft">✅ 审核要点</div>
+        <div class="fd">封面图文字需人工修正（"数智"→AI可能写错）、嘉宾职务需核对、政策内容需确认、数据需核实</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 总结 -->
+<div class="page final-page" id="final">
+  <h2>完整流程走完，你学到了什么？</h2>
+  <div class="sum-grid">
+    <div class="sum-item">
+      <div class="icon">🎯</div>
+      <div class="st">提示词工程</div>
+      <div class="sd">万能公式：角色+任务+要求+例子。一个公式搞定所有文体，说清四要素，结果就精准。</div>
+    </div>
+    <div class="sum-item">
+      <div class="icon">📚</div>
+      <div class="st">上下文工程</div>
+      <div class="sd">给完整素材，AI不是"编"而是"写"。提示词决定方向，上下文决定深度。</div>
+    </div>
+    <div class="sum-item">
+      <div class="icon">🔄</div>
+      <div class="st">一稿多改</div>
+      <div class="sd">同一素材，改受众和语气，20分钟出新闻通稿、内部动态、公众号、政策解读四种成品。</div>
+    </div>
+    <div class="sum-item">
+      <div class="icon">🖼️</div>
+      <div class="st">AI生图</div>
+      <div class="sd">封面图、海报、信息图都能生成。但AI画中文经常出错（如"数智"→"智智"），必须人工检查。</div>
+    </div>
+    <div class="sum-item">
+      <div class="icon">✅</div>
+      <div class="st">人工终审</div>
+      <div class="sd">AI出初稿，人工做终审。数据、口径、文字逐字核对，三审三校缺一不可。</div>
+    </div>
+    <div class="sum-item">
+      <div class="icon">🚀</div>
+      <div class="st">效率革命</div>
+      <div class="sd">以前改四版要半天，现在20分钟搞定。把"写作"变成"审改"，把时间花在创意和判断上。</div>
+    </div>
+  </div>
+  <div class="quote">"别只改提示词，要设计AI周围的完整信息环境。"</div>
+  <div class="qs">—— 斯坦福大学2026年CS224G上下文工程课程</div>
+</div>
+
+</body>
+</html>

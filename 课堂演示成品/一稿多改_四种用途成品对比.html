@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一稿多改：同一活动素材，四种用途成品</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #0a1628;
+    color: #e0e0e0;
+    padding: 30px 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle {
+    text-align: center;
+    color: #78909c;
+    font-size: 15px;
+    margin-bottom: 30px;
+  }
+  .source-box {
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 28px;
+    border: 1px dashed rgba(79,195,247,0.3);
+  }
+  .source-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #4fc3f7;
+    margin-bottom: 10px;
+  }
+  .source-content {
+    font-size: 13px;
+    color: #b0bec5;
+    line-height: 1.7;
+    background: rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    border-radius: 8px;
+  }
+  .outputs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .output-card {
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .output-header {
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .output-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .output-1 .output-header { background: rgba(198,40,40,0.15); }
+  .output-1 .output-icon { background: #c62828; }
+  .output-2 .output-header { background: rgba(25,118,210,0.15); }
+  .output-2 .output-icon { background: #1976d2; }
+  .output-3 .output-header { background: rgba(46,125,50,0.15); }
+  .output-3 .output-icon { background: #2e7d32; }
+  .output-4 .output-header { background: rgba(123,31,162,0.15); }
+  .output-4 .output-icon { background: #7b1fa2; }
+  .output-name { font-size: 16px; font-weight: 600; }
+  .output-purpose { font-size: 12px; color: #78909c; }
+  .prompt-section {
+    padding: 12px 18px;
+    background: rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .prompt-label {
+    font-size: 11px;
+    color: #78909c;
+    margin-bottom: 4px;
+  }
+  .prompt-text {
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 11px;
+    color: #ffcc80;
+    line-height: 1.5;
+  }
+  .result-section {
+    padding: 16px 18px;
+  }
+  .result-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .result-body {
+    font-size: 12px;
+    line-height: 1.7;
+    color: #b0bec5;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  .result-body p { margin-bottom: 8px; }
+  .result-body .highlight {
+    background: rgba(79,195,247,0.1);
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: #4fc3f7;
+  }
+  .key-diff {
+    margin-top: 28px;
+    background: linear-gradient(135deg, rgba(41,128,185,0.2), rgba(52,152,219,0.1));
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid rgba(52,152,219,0.3);
+  }
+  .key-diff h2 {
+    font-size: 20px;
+    color: #4fc3f7;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .diff-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .diff-table th {
+    background: rgba(0,0,0,0.3);
+    padding: 10px 12px;
+    text-align: left;
+    color: #4fc3f7;
+    font-weight: 600;
+  }
+  .diff-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: #b0bec5;
+  }
+  .diff-table tr:hover { background: rgba(255,255,255,0.02); }
+  .final-quote {
+    text-align: center;
+    margin-top: 28px;
+    padding: 20px;
+    font-size: 16px;
+    color: #b0bec5;
+    line-height: 1.8;
+  }
+  .final-quote strong {
+    color: #4fc3f7;
+    font-size: 19px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>一稿多改：同一活动素材，四种用途成品</h1>
+  <p class="subtitle">提示词不同，产出的文章用途完全不同——这就是提示词工程的力量</p>
+
+  <!-- 原始素材 -->
+  <div class="source-box">
+    <div class="source-title">📋 原始活动素材（上下文）</div>
+    <div class="source-content">
+      时间：2026年9月5日下午｜地点：青浦综合保税区会议室｜参与：青浦海关+区商务委+23家跨境电商企业｜内容：综保区"新9条"政策宣讲，重点讲仓储分类监管、海外仓退税、简化账册｜企业反馈："以前看文件一头雾水，这次海外仓退税操作流程听完就能落地"
+    </div>
+  </div>
+
+  <!-- 四种成品 -->
+  <div class="outputs-grid">
+    <!-- 成品1：新闻通稿 -->
+    <div class="output-card output-1">
+      <div class="output-header">
+        <div class="output-icon">📰</div>
+        <div>
+          <div class="output-name">新闻通稿</div>
+          <div class="output-purpose">对外发布·媒体供稿</div>
+        </div>
+      </div>
+      <div class="prompt-section">
+        <div class="prompt-label">提示词关键差异：</div>
+        <div class="prompt-text">受众=媒体和公众｜语气=客观严谨｜结构=导语+主体+结尾｜要求=突出政策红利和企业受益</div>
+      </div>
+      <div class="result-section">
+        <div class="result-title">青浦海关送政策进企业 23家跨境电商企业现场受益</div>
+        <div class="result-body">
+          <p>9月5日下午，青浦海关联合青浦区商务委在青浦综合保税区举办综保区"新9条"政策专场宣讲会，区内23家跨境电商企业参加。</p>
+          <p>宣讲围绕<span class="highlight">仓储货物按状态分类监管、跨境电商出口海外仓退税、简化账册管理</span>三项核心政策，从出台背景、核心条款、适用范围三个方面进行系统解读，并现场解答企业实操问题。</p>
+          <p>"以前看政策文件一头雾水，这次海外仓退税的操作流程听完就能落地。"参会企业负责人表示。下一步，青浦海关将建立"一企一档"精准服务机制，确保政策红利切实转化为企业发展动力。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 成品2：内部工作动态 -->
+    <div class="output-card output-2">
+      <div class="output-header">
+        <div class="output-icon">📋</div>
+        <div>
+          <div class="output-name">内部工作动态</div>
+          <div class="output-purpose">向上汇报·内部留存</div>
+        </div>
+      </div>
+      <div class="prompt-section">
+        <div class="prompt-label">提示词关键差异：</div>
+        <div class="prompt-text">受众=上级领导｜语气=简洁务实｜结构=工作举措+成效+下一步｜要求=突出部门作为和数据</div>
+      </div>
+      <div class="result-section">
+        <div class="result-title">青浦海关联合区商务委开展综保区"新9条"政策宣讲</div>
+        <div class="result-body">
+          <p><strong>一、工作举措</strong>：9月5日，我关联合区商务委在综保区举办政策宣讲会，覆盖区内23家跨境电商企业，重点解读三项核心政策，现场解答实操问题12个。</p>
+          <p><strong>二、工作成效</strong>：企业政策知晓率显著提升，海外仓退税等操作难点得到现场解决，企业满意度100%。</p>
+          <p><strong>三、下一步</strong>：建立"一企一档"服务机制，持续跟踪政策落地情况，定期收集企业诉求。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 成品3：公众号推文 -->
+    <div class="output-card output-3">
+      <div class="output-header">
+        <div class="output-icon">📱</div>
+        <div>
+          <div class="output-name">公众号推文</div>
+          <div class="output-purpose">新媒体传播·企业服务</div>
+        </div>
+      </div>
+      <div class="prompt-section">
+        <div class="prompt-label">提示词关键差异：</div>
+        <div class="prompt-text">受众=企业和公众｜语气=口语化有温度｜结构=钩子+要点+互动｜要求=加emoji分点，结尾互动引导</div>
+      </div>
+      <div class="result-section">
+        <div class="result-title">政策送到家门口！这场宣讲会，跨境电商企业都说实用</div>
+        <div class="result-body">
+          <p>各位做跨境电商的小伙伴注意啦！最近青浦海关把综保区"新9条"政策直接送到了企业门口👇</p>
+          <p>🔹 <strong>讲了啥？</strong>仓储分类监管、海外仓退税、简化账册，都是天天要用的</p>
+          <p>🔹 <strong>企业怎么说？</strong>"以前看文件一头雾水，这次听完就能落地"</p>
+          <p>🔹 <strong>接下来呢？</strong>"一企一档"精准服务，政策红利不打折扣</p>
+          <p>💬 你在政策使用中遇到过什么问题？评论区聊聊～</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 成品4：政策解读 -->
+    <div class="output-card output-4">
+      <div class="output-header">
+        <div class="output-icon">📖</div>
+        <div>
+          <div class="output-name">政策解读</div>
+          <div class="output-purpose">企业服务·一图读懂</div>
+        </div>
+      </div>
+      <div class="prompt-section">
+        <div class="prompt-label">提示词关键差异：</div>
+        <div class="prompt-text">受众=企业办事人员｜语气=大白话+打比方｜结构=政策要点+对企业有什么用+怎么申请｜要求=把公文语言翻译成人话</div>
+      </div>
+      <div class="result-section">
+        <div class="result-title">综保区"新9条"怎么用？跨境电商企业看这一篇就够了</div>
+        <div class="result-body">
+          <p><strong>📌 政策一：仓储货物按状态分类监管</strong></p>
+          <p>大白话：保税货和非保税货可以放一个仓库了，不用分开租。<span class="highlight">对企业有什么用？</span>省租金、省搬运。</p>
+          <p><strong>📌 政策二：跨境电商出口海外仓退税</strong></p>
+          <p>大白话：货发到海外仓就能申请退税，不用等卖完。<span class="highlight">对企业有什么用？</span>资金回笼更快。</p>
+          <p><strong>📌 政策三：简化账册管理</strong></p>
+          <p>大白话：账册从月报改成季报，核销周期更长。<span class="highlight">对企业有什么用？</span>少跑腿、少填表。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 关键差异对比 -->
+  <div class="key-diff">
+    <h2>同一个素材，提示词差在哪？</h2>
+    <table class="diff-table">
+      <thead>
+        <tr>
+          <th>用途</th>
+          <th>受众不同</th>
+          <th>语气不同</th>
+          <th>结构不同</th>
+          <th>重点不同</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>新闻通稿</td>
+          <td>媒体和公众</td>
+          <td>客观严谨</td>
+          <td>导语+主体+结尾</td>
+          <td>政策红利+企业受益</td>
+        </tr>
+        <tr>
+          <td>内部工作动态</td>
+          <td>上级领导</td>
+          <td>简洁务实</td>
+          <td>举措+成效+下一步</td>
+          <td>部门作为+数据</td>
+        </tr>
+        <tr>
+          <td>公众号推文</td>
+          <td>企业和公众</td>
+          <td>口语化有温度</td>
+          <td>钩子+要点+互动</td>
+          <td>可读性+传播性</td>
+        </tr>
+        <tr>
+          <td>政策解读</td>
+          <td>企业办事人员</td>
+          <td>大白话+打比方</td>
+          <td>要点+用处+申请</td>
+          <td>实用性+可操作</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="final-quote">
+    <strong>以前改四版要半天，现在20分钟搞定。</strong><br>
+    不是AI变聪明了，是你把"给谁看、什么语气、什么结构"说清楚了。<br>
+    这就是提示词工程对宣传岗最实在的价值。
+  </div>
+</div>
+</body>
+</html>

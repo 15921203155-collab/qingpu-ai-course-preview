@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI赋能海关宣传工作·第一课 认识AI</title>
+<style>
+:root {
+  --navy: #0a1628;
+  --navy-light: #132744;
+  --navy-mid: #1a3a5c;
+  --gold: #c9a961;
+  --gold-light: #e8d5a3;
+  --gold-dark: #a8893f;
+  --white: #ffffff;
+  --text: #2c3e50;
+  --text-light: #5a6c7d;
+  --bg: #f8f9fb;
+  --border: #e2e8f0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.8;
+  font-size: 16px;
+  padding-top: 56px;
+}
+
+/* 顶部导航 */
+.topnav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 56px;
+  background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 200;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+.topnav-brand {
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 1px;
+  margin-right: 40px;
+  white-space: nowrap;
+}
+.topnav-tabs {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+.topnav-tab {
+  padding: 8px 18px;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.topnav-tab:hover {
+  color: var(--white);
+  background: rgba(255,255,255,0.08);
+}
+.topnav-tab.active {
+  color: var(--gold);
+  background: rgba(201,169,97,0.12);
+  font-weight: 600;
+}
+.topnav-tab .tab-icon { font-size: 16px; }
+
+/* 标签内容区 */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.tab-full {
+  width: 100%;
+  height: calc(100vh - 56px);
+  border: none;
+}
+
+/* 侧边导航 */
+.sidebar {
+  position: fixed;
+  left: 0; top: 56px;
+  width: 240px;
+  height: calc(100vh - 56px);
+  background: var(--navy);
+  padding: 30px 0;
+  overflow-y: auto;
+  z-index: 100;
+}
+.sidebar-logo {
+  padding: 0 24px 24px;
+  border-bottom: 1px solid rgba(201,169,97,0.2);
+  margin-bottom: 16px;
+}
+.sidebar-logo h3 {
+  color: var(--gold);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.sidebar-logo p {
+  color: rgba(255,255,255,0.5);
+  font-size: 11px;
+  margin-top: 4px;
+}
+.sidebar nav a {
+  display: block;
+  padding: 10px 24px;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  font-size: 13px;
+  border-left: 3px solid transparent;
+  transition: all 0.2s;
+}
+.sidebar nav a:hover, .sidebar nav a.active {
+  color: var(--gold);
+  background: rgba(201,169,97,0.08);
+  border-left-color: var(--gold);
+}
+.sidebar nav .nav-group {
+  padding: 12px 24px 4px;
+  color: rgba(255,255,255,0.35);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* 主内容 */
+.main {
+  margin-left: 240px;
+}
+
+/* 封面 */
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 50%, var(--navy-light) 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -20%;
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(201,169,97,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30%; left: -10%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(201,169,97,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-content {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  padding: 40px;
+}
+.hero-badge {
+  display: inline-block;
+  padding: 6px 20px;
+  border: 1px solid var(--gold);
+  border-radius: 30px;
+  color: var(--gold);
+  font-size: 13px;
+  letter-spacing: 3px;
+  margin-bottom: 30px;
+}
+.hero h1 {
+  color: var(--white);
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+.hero h1 span {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  color: rgba(255,255,255,0.7);
+  font-size: 20px;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+}
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  color: rgba(255,255,255,0.5);
+  font-size: 14px;
+}
+.hero-meta div { text-align: center; }
+.hero-meta strong {
+  display: block;
+  color: var(--gold);
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.4);
+  font-size: 12px;
+  letter-spacing: 2px;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* 通用区块 */
+.section {
+  padding: 80px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-label {
+  color: var(--gold-dark);
+  font-size: 13px;
+  letter-spacing: 4px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+.section-desc {
+  font-size: 17px;
+  color: var(--text-light);
+  margin-bottom: 50px;
+  max-width: 700px;
+}
+.divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  margin-bottom: 40px;
+}
+
+/* 卡片 */
+.card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(10,22,40,0.06);
+  border: 1px solid var(--border);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(10,22,40,0.1);
+}
+.card h4 {
+  font-size: 18px;
+  color: var(--navy);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card h4 .icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.card p { color: var(--text-light); font-size: 14px; line-height: 1.7; }
+
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+/* 高亮框 */
+.highlight {
+  background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+  border-radius: 16px;
+  padding: 40px;
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+.highlight::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(201,169,97,0.15), transparent 70%);
+}
+.highlight .quote {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+.highlight .quote span { color: var(--gold); }
+.highlight .source {
+  margin-top: 16px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  position: relative;
+  z-index: 1;
+}
+
+/* 公式展示 */
+.formula {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 40px 0;
+}
+.formula-item {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  text-align: center;
+  min-width: 140px;
+  transition: all 0.2s;
+}
+.formula-item:hover {
+  border-color: var(--gold);
+  box-shadow: 0 4px 20px rgba(201,169,97,0.15);
+}
+.formula-item .label {
+  font-size: 11px;
+  color: var(--gold-dark);
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+.formula-item .title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 6px 0;
+}
+.formula-item .desc {
+  font-size: 12px;
+  color: var(--text-light);
+}
+.formula-plus {
+  font-size: 24px;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* 三级对比 */
+.compare-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  margin: 30px 0;
+}
+.compare-card {
+  border-radius: 12px;
+  padding: 28px;
+  position: relative;
+}
+.compare-card.bronze {
+  background: linear-gradient(135deg, #f5f0e8, #ede4d3);
+  border: 2px solid #c9a961;
+}
+.compare-card.silver {
+  background: linear-gradient(135deg, #e8eef5, #dce5f0);
+  border: 2px solid #8ba3c4;
+}
+.compare-card.gold {
+  background: linear-gradient(135deg, #fdf6e3, #f5e6b8);
+  border: 2px solid var(--gold);
+  box-shadow: 0 8px 30px rgba(201,169,97,0.2);
+}
+.compare-card .level {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.compare-card.bronze .level { color: #8b6914; }
+.compare-card.silver .level { color: #4a6a8a; }
+.compare-card.gold .level { color: var(--gold-dark); }
+.compare-card h4 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: var(--navy);
+}
+.compare-card .prompt {
+  background: rgba(255,255,255,0.7);
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 14px;
+  font-family: "SF Mono", Monaco, monospace;
+  line-height: 1.6;
+}
+.compare-card .result {
+  font-size: 13px;
+  color: var(--text-light);
+}
+.compare-card .result strong { color: var(--navy); }
+
+/* 时间线 */
+.timeline {
+  position: relative;
+  padding-left: 40px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 12px; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--gold), var(--navy-mid));
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 28px;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -34px; top: 6px;
+  width: 14px; height: 14px;
+  background: var(--gold);
+  border-radius: 50%;
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 2px var(--gold);
+}
+.timeline-item .year {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gold-dark);
+  margin-bottom: 4px;
+}
+.timeline-item h4 {
+  font-size: 16px;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.timeline-item p {
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+/* 工具地图 */
+.tool-category {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 28px;
+  border-top: 4px solid var(--gold);
+  box-shadow: 0 4px 20px rgba(10,22,40,0.06);
+}
+.tool-category h4 {
+  font-size: 18px;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.tool-category .tool-desc {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+.tool-list {
+  list-style: none;
+}
+.tool-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+.tool-list li:last-child { border-bottom: none; }
+.tool-list .tool-name { font-weight: 600; color: var(--navy); }
+.tool-list .tool-tag {
+  font-size: 11px;
+  background: rgba(201,169,97,0.1);
+  color: var(--gold-dark);
+  padding: 2px 10px;
+  border-radius: 10px;
+}
+
+/* 安全四道门 */
+.gate-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.gate-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 28px 20px;
+  text-align: center;
+  border: 1px solid var(--border);
+  position: relative;
+}
+.gate-card .gate-num {
+  position: absolute;
+  top: -12px; left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+  color: var(--gold);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+.gate-card h4 {
+  font-size: 16px;
+  color: var(--navy);
+  margin: 12px 0 10px;
+}
+.gate-card p {
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* 成长阶梯 */
+.ladder {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 30px;
+  margin: 40px 0;
+}
+.ladder-step {
+  text-align: center;
+  flex: 1;
+  max-width: 280px;
+}
+.ladder-step .step-box {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 28px 20px;
+  border: 2px solid var(--border);
+  position: relative;
+}
+.ladder-step:nth-child(1) .step-box { border-color: #8ba3c4; min-height: 180px; }
+.ladder-step:nth-child(2) .step-box { border-color: var(--gold); min-height: 220px; }
+.ladder-step:nth-child(3) .step-box { border-color: var(--navy); min-height: 260px; background: linear-gradient(135deg, var(--navy), var(--navy-mid)); color: white; }
+.ladder-step .step-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.ladder-step:nth-child(1) .step-label { color: #4a6a8a; }
+.ladder-step:nth-child(2) .step-label { color: var(--gold-dark); }
+.ladder-step:nth-child(3) .step-label { color: var(--gold); }
+.ladder-step h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.ladder-step:nth-child(3) h4 { color: var(--white); }
+.ladder-step p {
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+.ladder-step:nth-child(3) p { color: rgba(255,255,255,0.7); }
+.ladder-arrow {
+  font-size: 28px;
+  color: var(--gold);
+  padding-bottom: 100px;
+}
+
+/* 模板代码块 */
+.template {
+  background: var(--navy);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 16px 0;
+  position: relative;
+}
+.template .template-label {
+  position: absolute;
+  top: 12px; right: 16px;
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+.template pre {
+  color: rgba(255,255,255,0.85);
+  font-size: 13px;
+  font-family: "SF Mono", Monaco, monospace;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.template .key { color: var(--gold-light); }
+.template .val { color: #7ec8e3; }
+
+/* 底部 */
+.footer {
+  background: var(--navy);
+  padding: 60px;
+  text-align: center;
+  color: rgba(255,255,255,0.5);
+}
+.footer h3 {
+  color: var(--gold);
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+.footer p { font-size: 14px; margin-bottom: 8px; }
+
+/* 响应式 */
+@media (max-width: 1024px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .compare-row { grid-template-columns: 1fr; }
+  .gate-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero h1 { font-size: 36px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 顶部导航 -->
+<nav class="topnav">
+  <div class="topnav-brand">青浦海关 · AI应用系列</div>
+  <div class="topnav-tabs">
+    <div class="topnav-tab active" data-tab="course"><span class="tab-icon">📚</span>课程内容</div>
+    <div class="topnav-tab" data-tab="demo-text"><span class="tab-icon">📝</span>文案演示</div>
+    <div class="topnav-tab" data-tab="demo-image"><span class="tab-icon">🎨</span>出图演示</div>
+    <div class="topnav-tab" data-tab="workbench"><span class="tab-icon">📊</span>工作台</div>
+    <div class="topnav-tab" data-tab="ai-partner"><span class="tab-icon">🤖</span>AI伙伴</div>
+    <div class="topnav-tab" data-tab="preview"><span class="tab-icon">🔍</span>课程预览</div>
+    <div class="topnav-tab" data-tab="prompts"><span class="tab-icon">💡</span>提示词库</div>
+  </div>
+</nav>
+
+<!-- 标签页：课程内容 -->
+<div class="tab-content active" id="tab-course">
+
+<!-- 侧边导航 -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <h3>青浦海关 · AI应用系列</h3>
+    <p>第一课 · 认识AI</p>
+  </div>
+  <nav>
+    <div class="nav-group">开场</div>
+    <a href="#hero">封面</a>
+    <a href="#opening">开场互动</a>
+    <a href="#course-map">课程地图</a>
+    
+    <div class="nav-group">认知AI</div>
+    <a href="#what-is-ai">AI是什么</a>
+    <a href="#three-metaphors">三个比喻</a>
+    <a href="#history">发展简史</a>
+    <a href="#llm">大模型原理</a>
+    <a href="#hallucination">幻觉</a>
+    
+    <div class="nav-group">AI能做什么</div>
+    <a href="#six-steps">六个环节</a>
+    <a href="#tools">工具地图</a>
+    
+    <div class="nav-group">安全</div>
+    <a href="#security">四道门</a>
+    <a href="#agent-security">Agent安全</a>
+    
+    <div class="nav-group">核心方法</div>
+    <a href="#prompt">提示词工程</a>
+    <a href="#compare">三级对比</a>
+    <a href="#context">上下文工程</a>
+    <a href="#ladder">成长阶梯</a>
+    
+    <div class="nav-group">进阶</div>
+    <a href="#know-you">让AI认识你</a>
+    <a href="#workbuddy">WorkBuddy</a>
+    <a href="#ability">能力素养</a>
+    
+    <div class="nav-group">结尾</div>
+    <a href="#workbench">工作台彩蛋</a>
+    <a href="#homework">课后作业</a>
+  </nav>
+</aside>
+
+<!-- 主内容 -->
+<div class="main">
+
+<!-- 封面 -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">青浦海关 · AI应用系列课程</div>
+    <h1>AI赋能<br><span>海关宣传工作</span></h1>
+    <p class="hero-sub">第一课 · 认识AI —— 从看懂到敢于开始</p>
+    <div class="hero-meta">
+      <div><strong>90</strong>分钟</div>
+      <div><strong>6</strong>节课系列</div>
+      <div><strong>0</strong>基础可学</div>
+    </div>
+  </div>
+  <div class="hero-scroll">向下滚动 ↓</div>
+</section>
+
+<!-- 开场互动 -->
+<section class="section" id="opening">
+  <div class="section-label">OPENING</div>
+  <h2 class="section-title">开场互动：三个问题</h2>
+  <div class="divider"></div>
+  <p class="section-desc">课程开始，先不着急讲理论，听听你们的想法。这三个问题没有标准答案，想到什么说什么。</p>
+  
+  <div class="grid-3">
+    <div class="card">
+      <h4><span class="icon">?</span>你对AI的认知是什么？</h4>
+      <p>提到AI，你脑子里第一个冒出来的是什么？是聊天机器人？是自动画图？还是觉得"那是程序员的事，跟我没关系"？</p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">!</span>你希望AI帮你做什么？</h4>
+      <p>工作中哪些事最耗时、最重复？写稿太慢？一稿多投改到吐？做海报不会设计？剪视频太费时间？</p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">→</span>有没有想做但不确定的事？</h4>
+      <p>特别希望AI做但不知道能不能做好的事？说得越具体越好，今天这6节课我们会亲手做一遍。</p>
+    </div>
+  </div>
+
+  <div class="highlight" style="margin-top: 40px;">
+    <div class="quote">你们刚才说的每一件事——<span>写新闻稿、改标题、一稿多版本、做海报、剪视频、整理素材、政策解读</span>——今天这6节课里，我们都会亲手做一遍。</div>
+  </div>
+</section>
+
+<!-- 你已经在用AI了 -->
+<section class="section" style="background: var(--white);">
+  <div class="section-label">AWAKENING</div>
+  <h2 class="section-title">真相：你今天早上已经用过AI了</h2>
+  <div class="divider"></div>
+  <p class="section-desc">很多人觉得AI很高深、离自己很远。其实你每天都在用AI，只是不知道而已。你不是"开始用AI"，你是"从被动用AI，变成主动用AI"。</p>
+  
+  <div class="grid-4">
+    <div class="card" style="text-align:center;">
+      <div style="font-size:32px;margin-bottom:10px;">🎬</div>
+      <h4 style="justify-content:center;">刷短视频</h4>
+      <p>推荐算法就是AI，它比你妈还懂你</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:32px;margin-bottom:10px;">📷</div>
+      <h4 style="justify-content:center;">拍照美颜</h4>
+      <p>人脸识别、夜景增强都是AI</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:32px;margin-bottom:10px;">🗺️</div>
+      <h4 style="justify-content:center;">导航路线</h4>
+      <p>路径规划、拥堵预测都是AI</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:32px;margin-bottom:10px;">⌨️</div>
+      <h4 style="justify-content:center;">输入法联想</h4>
+      <p>词语预测就是AI</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:32px;margin-bottom:10px;">🎵</div>
+      <h4 style="justify-content:center;">音乐推荐</h4>
+      <p>个性化推荐就是AI</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:32px;margin-bottom:10px;">📧</div>
+      <h4 style="justify-content:center;">垃圾邮件过滤</h4>
+      <p>内容分类就是AI</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:32px;margin-bottom:10px;">🔍</div>
+      <h4 style="justify-content:center;">搜索引擎</h4>
+      <p>语义理解就是AI</p>
+    </div>
+    <div class="card" style="text-align:center;background:linear-gradient(135deg,rgba(201,169,97,0.1),rgba(10,22,40,0.05));border-color:var(--gold);">
+      <div style="font-size:32px;margin-bottom:10px;">🤖</div>
+      <h4 style="justify-content:center;color:var(--gold-dark);">今天开始</h4>
+      <p style="color:var(--gold-dark);">主动用AI帮你干活</p>
+    </div>
+  </div>
+</section>
+
+<!-- 课程地图 -->
+<section class="section" id="course-map">
+  <div class="section-label">COURSE MAP</div>
+  <h2 class="section-title">6节课，从认知到实战</h2>
+  <div class="divider"></div>
+  <p class="section-desc">不是教你一堆软件，而是解决宣传岗位真正的工作。先让你看见变化，再起专业名字。</p>
+  
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="year">第1课 · 今天</div>
+      <h4>认识AI · 会跟AI说话</h4>
+      <p>打地基：AI认知 + 提示词工程 + 上下文工程 + 政务安全</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">第2课</div>
+      <h4>让AI听懂工作</h4>
+      <p>实战：四类AI工具上手——聊天AI、作图AI、视频AI、桌面智能体</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">第3课</div>
+      <h4>从文字到画面</h4>
+      <p>实战：AI作图 + 海报设计 + 公众号头图 + 信息图</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">第4课</div>
+      <h4>把专业内容讲成视频</h4>
+      <p>实战：AI视频创作——脚本、配音、图文成片、数字人</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">第5课</div>
+      <h4>让视频进入制作</h4>
+      <p>进阶：视频制作全流程——分镜、素材管理、特效、字幕</p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">第6课</div>
+      <h4>搭建个人宣传工作台</h4>
+      <p>毕业：从工具到系统——台账工作台、提示词库、工作流自动化</p>
+    </div>
+  </div>
+</section>
+
+<!-- AI是什么 -->
+<section class="section" id="what-is-ai" style="background: var(--white);">
+  <div class="section-label">UNDERSTANDING</div>
+  <h2 class="section-title">AI是什么：不是一个软件，而是一类技术</h2>
+  <div class="divider"></div>
+  <p class="section-desc">AI不是某一个App，而是"让机器能做通常需要人类智能的事"的技术总称。我们今天用的"大模型"，是AI目前最厉害的一个分支。</p>
+</section>
+
+<!-- 三个比喻 -->
+<section class="section" id="three-metaphors">
+  <div class="section-label">METAPHORS</div>
+  <h2 class="section-title">三个比喻：一秒懂AI</h2>
+  <div class="divider"></div>
+  <p class="section-desc">不讲技术原理，用三个比喻让你理解AI到底是什么、能干什么、不能干什么。</p>
+  
+  <div class="grid-3">
+    <div class="card" style="border-top: 4px solid var(--navy-mid);">
+      <h4><span class="icon">📚</span>读过万卷书的实习生</h4>
+      <p><strong>优点：</strong>知识量巨大、随叫随到、不知疲倦<br><strong>缺点：</strong>没常识、没经验、会犯错<br><strong>启示：</strong>它给的答案，你要检查</p>
+    </div>
+    <div class="card" style="border-top: 4px solid var(--gold);">
+      <h4><span class="icon">🦜</span>超级聪明的鹦鹉</h4>
+      <p><strong>本质：</strong>学的是语言规律，不是真正理解意思<br><strong>表现：</strong>能模仿各种风格，但不知道自己在说什么<br><strong>启示：</strong>喂给它的素材和例子很重要</p>
+    </div>
+    <div class="card" style="border-top: 4px solid #a03030;">
+      <h4><span class="icon">🎯</span>蒙题高手（最重要）</h4>
+      <p><strong>本质：</strong>AI是在"猜"下一个词，不是在"想"答案<br><strong>规律：</strong>题目出得好，蒙对概率就高<br><strong>启示：</strong>不是AI不行，是你不会出题</p>
+    </div>
+  </div>
+
+  <div class="highlight" style="margin-top: 40px;">
+    <div class="quote">一句话真相：<span>AI是工具，你是大脑。</span>AI负责"干活"，你负责"判断"。AI是概率的艺术家，不是逻辑的数学家。</div>
+  </div>
+</section>
+
+<!-- 发展简史 -->
+<section class="section" id="history" style="background: var(--white);">
+  <div class="section-label">HISTORY</div>
+  <h2 class="section-title">AI走了七十年，为什么现在突然火了？</h2>
+  <div class="divider"></div>
+  
+  <div class="grid-2" style="align-items: start;">
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="year">1950s</div>
+        <h4>AI概念诞生</h4>
+        <p>图灵提出"机器能思考吗"，AI作为研究领域正式出现</p>
+      </div>
+      <div class="timeline-item">
+        <div class="year">1997</div>
+        <h4>深蓝打败国际象棋冠军</h4>
+        <p>AI第一次在复杂博弈中战胜人类顶尖选手</p>
+      </div>
+      <div class="timeline-item">
+        <div class="year">2012</div>
+        <h4>深度学习突破</h4>
+        <p>图像识别准确率大幅提升，AI进入视觉时代</p>
+      </div>
+      <div class="timeline-item">
+        <div class="year">2016</div>
+        <h4>AlphaGo打败李世石</h4>
+        <p>AI在围棋这个"人类最后堡垒"中获胜</p>
+      </div>
+      <div class="timeline-item">
+        <div class="year">2022年底</div>
+        <h4>ChatGPT发布</h4>
+        <p>生成式AI爆发，普通人第一次直接感受到AI的能力</p>
+      </div>
+      <div class="timeline-item">
+        <div class="year">2023-2024</div>
+        <h4>大模型能力快速提升</h4>
+        <p>国内豆包、DeepSeek、Kimi等崛起，多模态能力成熟</p>
+      </div>
+      <div class="timeline-item">
+        <div class="year">2025-2026</div>
+        <h4>从"聊天"走向"干活"</h4>
+        <p>智能体、桌面智能体、多模态生成普及，AI开始真正替人做事</p>
+      </div>
+    </div>
+    <div>
+      <div class="highlight">
+        <div class="quote">为什么现在火了？<br><span>三个原因：算力够了、数据够了、算法突破了。</span><br>就像水烧到100度才沸腾，前面七十年都是在烧水。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 大模型原理 -->
+<section class="section" id="llm">
+  <div class="section-label">TECHNOLOGY</div>
+  <h2 class="section-title">大模型是什么：先训练出能力，再用于具体任务</h2>
+  <div class="divider"></div>
+  <p class="section-desc">不用懂技术，但要知道它怎么工作——这决定了你该怎么用它。</p>
+  
+  <div class="grid-2">
+    <div class="card">
+      <h4><span class="icon">🏋️</span>训练阶段：读遍全网</h4>
+      <p>大模型在训练阶段从海量数据中学习规律——语言表达、关联关系、常见结构。就像一个读遍了全网书籍的"超级实习生"。</p>
+      <p style="margin-top:12px;"><strong>关键点：</strong>训练是一次性的，训练完之后模型就固定了，它不会在你聊天时"学习"新知识。</p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">💬</span>使用阶段：结合你的输入</h4>
+      <p>你每次提问，模型结合你这次的输入（提示词+上下文）生成结果。同一个模型，给不同的材料，就会给出不同的回答。</p>
+      <p style="margin-top:12px;"><strong>关键点：</strong>你给什么，比它是什么更重要。这就是为什么"提示词"和"上下文"如此重要。</p>
+    </div>
+  </div>
+
+  <div class="highlight" style="margin-top: 30px;">
+    <div class="quote">定义参考：<span>斯坦福大学HAI研究所 / CS124课程</span><br>大模型 = 经过大规模训练、用大量参数表示所学规律的计算模型。</div>
+  </div>
+</section>
+
+<!-- 幻觉 -->
+<section class="section" id="hallucination" style="background: var(--white);">
+  <div class="section-label">CAUTION</div>
+  <h2 class="section-title">它为什么会"一本正经地胡说"？</h2>
+  <div class="divider"></div>
+  <p class="section-desc">这是宣传岗最需要知道的事——AI不知道答案的时候，不会说"我不知道"，它会编一个看起来很合理的答案。</p>
+  
+  <div class="grid-2" style="align-items: center;">
+    <div>
+      <h3 style="color:var(--navy);margin-bottom:16px;">专业名词：幻觉（Hallucination）</h3>
+      <p style="color:var(--text-light);margin-bottom:16px;">因为AI是"蒙题高手"，它的目标是"生成看起来最合理的下一个词"，而不是"生成正确的答案"。所以它会特别自信地编造事实、数据、引用。</p>
+      <div class="highlight" style="padding:24px;">
+        <div class="quote" style="font-size:18px;">记住：<span>AI给的事实、数据、引用，必须交叉验证。</span>特别是政策名称、数据数字、人名职务——错一个，发出去就是事故。</div>
+      </div>
+    </div>
+    <div class="card">
+      <h4><span class="icon">🛡️</span>防幻觉三招</h4>
+      <p><strong>1. 给材料：</strong>把政策原文、真实素材喂给它，让它基于材料回答</p>
+      <p style="margin-top:10px;"><strong>2. 划边界：</strong>告诉它"只基于我给的材料回答，材料没写就说未提及"</p>
+      <p style="margin-top:10px;"><strong>3. 必核实：</strong>重要信息（数据、人名、政策名）发布前必须查原文</p>
+    </div>
+  </div>
+</section>
+
+<!-- 六个环节 -->
+<section class="section" id="six-steps">
+  <div class="section-label">CAPABILITY</div>
+  <h2 class="section-title">AI能帮宣传工作做什么？从六个环节看</h2>
+  <div class="divider"></div>
+  <p class="section-desc">从选题到发布，每一步都可以有AI搭把手。但记住——AI搭把手，你是掌舵的。</p>
+  
+  <div class="grid-3">
+    <div class="card">
+      <h4><span class="icon">🔍</span>找</h4>
+      <p>找素材、找资料、找政策原文。以前搜半天，现在让AI帮你整理。</p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">📋</span>理</h4>
+      <p>整理素材、提炼要点、做会议纪要。一堆材料丢给AI，它帮你理出头绪。</p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">✍️</span>写</h4>
+      <p>写新闻稿、写公众号、写政策解读、写标题。这是AI最擅长的，也是你们最耗时的。</p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">🎨</span>画</h4>
+      <p>做海报、做信息图、做公众号封面。你说，它画，不用求设计。</p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">🎬</span>剪</h4>
+      <p>做短视频脚本、加字幕、配音、一键成片。一个人半小时出一条政策短视频。</p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">📤</span>交</h4>
+      <p>一稿多渠道分发、排版适配、发布检查。同一篇稿，AI帮你改成四个平台版本。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 工具地图 -->
+<section class="section" id="tools" style="background: var(--white);">
+  <div class="section-label">TOOLS</div>
+  <h2 class="section-title">国内常用AI工具地图</h2>
+  <div class="divider"></div>
+  <p class="section-desc">不背"谁最好"，先看它站在哪一段。工具会换，本事不变——学的是跟这四类AI打交道的能力。</p>
+  
+  <div class="grid-4">
+    <div class="tool-category">
+      <h4>💬 聊 · 文字与资料</h4>
+      <p class="tool-desc">解释、整理、比较表达，先把内容想清楚</p>
+      <ul class="tool-list">
+        <li><span class="tool-name">豆包</span><span class="tool-tag">小白首选</span></li>
+        <li><span class="tool-name">DeepSeek</span><span class="tool-tag">推理强</span></li>
+        <li><span class="tool-name">Kimi</span><span class="tool-tag">长文档</span></li>
+      </ul>
+    </div>
+    <div class="tool-category">
+      <h4>💻 做 · 电脑里的任务</h4>
+      <p class="tool-desc">读取授权文件、安排步骤、制作并保存成果</p>
+      <ul class="tool-list">
+        <li><span class="tool-name">WorkBuddy</span><span class="tool-tag">腾讯</span></li>
+        <li><span class="tool-name">豆包工作</span><span class="tool-tag">字节</span></li>
+      </ul>
+    </div>
+    <div class="tool-category">
+      <h4>🎨 画 · 图片与视频</h4>
+      <p class="tool-desc">给描述与参考图，生成或修改视觉素材</p>
+      <ul class="tool-list">
+        <li><span class="tool-name">即梦</span><span class="tool-tag">小白首选</span></li>
+        <li><span class="tool-name">豆包图像</span><span class="tool-tag">中文好</span></li>
+        <li><span class="tool-name">可灵</span><span class="tool-tag">视频强</span></li>
+      </ul>
+    </div>
+    <div class="tool-category">
+      <h4>✂️ 剪 · 组成视频</h4>
+      <p class="tool-desc">组织画面、字幕与声音，预览后继续修改</p>
+      <ul class="tool-list">
+        <li><span class="tool-name">剪映AI</span><span class="tool-tag">一键成片</span></li>
+        <li><span class="tool-name">ChatCut</span><span class="tool-tag">可被AI调用</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight" style="margin-top: 30px;">
+    <div class="quote">目前<span>WorkBuddy和豆包工作</span>都有算力扶持，可以都用。工具会换，本事不变——今天学的是"跟AI打交道"的能力，明年换个新工具，你照样会用。</div>
+  </div>
+</section>
+
+<!-- 安全四道门 -->
+<section class="section" id="security">
+  <div class="section-label">SECURITY</div>
+  <h2 class="section-title">每次用之前，先过这四道门</h2>
+  <div class="divider"></div>
+  <p class="section-desc">对海关来说，AI的第一课不是"怎么用"，是"什么不能喂"。红线不破，技巧才有意义。</p>
+  
+  <div class="gate-grid">
+    <div class="gate-card">
+      <div class="gate-num">1</div>
+      <h4>保密关</h4>
+      <p>企业申报信息、内部文件、未公开数据、执法信息——一旦进了AI，你就不受控制了。<br><strong>先过保密关，再谈效率关。</strong></p>
+    </div>
+    <div class="gate-card">
+      <div class="gate-num">2</div>
+      <h4>真实关</h4>
+      <p>AI合成画面永远不能冒充新闻照片。海关新闻讲究现场、真实、可追溯。<br><strong>AI可以做"设计"，不能做"证据"。</strong></p>
+    </div>
+    <div class="gate-card">
+      <div class="gate-num">3</div>
+      <h4>审核关</h4>
+      <p>AI写的稿子不署名，署名的是你。数据错一个、口径偏一点，追责追的是人。<br><strong>AI出初稿，人工做终审。</strong></p>
+    </div>
+    <div class="gate-card">
+      <div class="gate-num">4</div>
+      <h4>来源关</h4>
+      <p>政策类内容必须先查官方来源，绝对不能让AI自己编政策。查不到完整的，就用已确认的。<br><strong>先有确定证据，再落地图片或文章。</strong></p>
+    </div>
+  </div>
+
+  <div class="highlight" style="margin-top: 40px;">
+    <div class="quote">对企业来说，AI是效率工具；对海关宣传口来说，AI是<span>"效率工具 + 风险源"</span>。用好了是助手，用错了是事故。</div>
+  </div>
+</section>
+
+<!-- Agent安全六大风险 -->
+<section class="section" id="agent-security" style="background: var(--white);">
+  <div class="section-label">AGENT SECURITY</div>
+  <h2 class="section-title">用Agent的最大风险：不是写错字</h2>
+  <div class="divider"></div>
+  <p class="section-desc">海关宣传口用AI，最大风险不是"AI写错字"，而是<strong>泄密、发布失守、责任说不清</strong>。AI定位是辅助工具，不是全自动发稿系统。</p>
+  
+  <div class="grid-3" style="margin-bottom: 40px;">
+    <div class="card">
+      <h4><span class="icon">🔒</span>1. 泄密：最不能出的事</h4>
+      <p>Agent要读材料、拆任务、调工具。一旦把内部文件、案件线索、企业数据、查验信息喂进公共AI，就可能传到互联网平台。<br><br>哪怕删了企业名称、价格、数量，AI也可能靠关键词拼出完整敏感信息——<strong>"拼图式泄密"</strong>很真实。<br><br><strong>红线：涉密、工作秘密、敏感信息，不进未审批的公共AI。</strong></p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">📋</span>2. 审查流程被绕开</h4>
+      <p>宣传口有铁规矩——<strong>先审查、后公开，一事一审</strong>。但Agent容易让人产生错觉："反正最后有人审。"<br><br>实际风险：AI先起草、改写、排版、分发，人工只扫一眼。中间漏掉口径错误、敏感细节、未经授权的内部信息。<br><br><strong>Agent可以整理初稿，定稿发布必须走原审批流程，修改过就要重审。</strong></p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">⚠️</span>3. 内容出错，砸公信力</h4>
+      <p>AI会一本正经地编。有案例：干部让AI写材料，4个案例2个张冠李戴、2个凭空捏造。<br><br>放到海关宣传里更麻烦——政策口径、通关数据、处罚表述、企业名称、时间地点，只要错一处，就不是普通笔误，而是影响政府信息的权威性。<br><br><strong>重要信息必须交叉验证，查原文、看来源。</strong></p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">©️</span>4. 版权和人物权益</h4>
+      <p>AI生成的图片、声音、视频也可能踩线。比如用了没授权的素材，或AI模仿了某人的声音肖像。<br><br>政务账号尤其敏感——泄露的不只是个人权益，更是政府公信力。账号外包出去，责任也甩不出去。<br><br><strong>AI生成内容发布前必须确认素材授权和肖像权。</strong></p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">🤖</span>5. 过度依赖，削弱判断</h4>
+      <p>Agent用顺了，容易从"AI辅助"滑向"AI代笔"。最后稿子看着专业，但缺一线调研、少业务把关。<br><br>官方也提醒过，AI无法替代真实的社情民意，盲目依赖还可能助长形式主义。<br><br><strong>AI是工具，你是大脑。判断力和创造力才是核心竞争力。</strong></p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">⚖️</span>6. 出了事，责任算谁的？</h4>
+      <p>这是关键。AI不会担责，最后追的还是使用的人、审核的人、发布的人。<br><br>所以Agent的每个动作都要留痕：输入了什么、调用了哪个Skill、生成了什么版本、谁审核、谁批准发布。否则一出问题，很难复盘。<br><br><strong>全程留痕，谁审核谁负责。</strong></p>
+    </div>
+  </div>
+  
+  <!-- 三句话总结 -->
+  <div class="highlight" style="margin-bottom: 40px;">
+    <div class="quote" style="font-size:20px;">
+      记住三句话：<br>
+      <span>涉密内容，绝对不进公共AI。</span><br>
+      <span>AI只干初稿，人工负责核验。</span><br>
+      <span>发布前必须走原审批流程。</span>
+    </div>
+  </div>
+  
+  <!-- 允许用/禁止用场景清单 -->
+  <h3 style="color:var(--navy);font-size:22px;margin-bottom:24px;text-align:center;">✅ 允许用 vs ❌ 禁止用 场景清单</h3>
+  <div class="grid-2">
+    <div class="card" style="border-left: 4px solid #27ae60;">
+      <h4 style="color:#27ae60;">✅ 可以放心用AI</h4>
+      <div style="font-size:14px;line-height:2.2;color:var(--text);">
+        ✓ 公开政策文件的解读和大白话翻译<br>
+        ✓ 公开活动的新闻稿初稿撰写<br>
+        ✓ 公众号标题、文案的多方案 brainstorm<br>
+        ✓ 海报、图解等设计品的创意方案<br>
+        ✓ 已公开数据的整理和可视化<br>
+        ✓ 会议纪要的整理和提炼（公开会议）<br>
+        ✓ 学习资料、培训材料的辅助准备<br>
+        ✓ 错别字、语法的初步校对
+      </div>
+    </div>
+    <div class="card" style="border-left: 4px solid #e74c3c;">
+      <h4 style="color:#e74c3c;">❌ 绝对不能用AI</h4>
+      <div style="font-size:14px;line-height:2.2;color:var(--text);">
+        ✗ 涉密文件、内部工作秘密的处理<br>
+        ✗ 企业申报数据、查验信息的输入<br>
+        ✗ 未公开的政策、人事、案件信息<br>
+        ✗ AI生成内容直接当新闻照片发布<br>
+        ✗ 跳过审批流程直接发布AI产出<br>
+        ✗ 让AI代替人工做最终审核决策<br>
+        ✗ 用AI模仿特定人物的声音/肖像<br>
+        ✗ 把AI输出当权威数据不做核实
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 提示词工程 -->
+<section class="section" id="prompt" style="background: var(--white);">
+  <div class="section-label">PROMPT ENGINEERING</div>
+  <h2 class="section-title">提示词工程：跟AI说话的万能公式</h2>
+  <div class="divider"></div>
+  <p class="section-desc">既然AI是"蒙题高手"，那怎么"出题"就很重要。提示词工程，就是教你怎么跟AI说话。记住一个公式就够了。</p>
+  
+  <div class="formula">
+    <div class="formula-item">
+      <div class="label">ROLE</div>
+      <div class="title">角色</div>
+      <div class="desc">告诉AI"你是谁"<br>海关宣传干部 vs 大学生</div>
+    </div>
+    <div class="formula-plus">+</div>
+    <div class="formula-item">
+      <div class="label">TASK</div>
+      <div class="title">任务</div>
+      <div class="desc">告诉它"干什么"<br>写稿/做解读/改标题</div>
+    </div>
+    <div class="formula-plus">+</div>
+    <div class="formula-item">
+      <div class="label">REQUIRE</div>
+      <div class="title">要求</div>
+      <div class="desc">告诉它"什么标准"<br>字数/结构/语气/禁用词</div>
+    </div>
+    <div class="formula-plus">+</div>
+    <div class="formula-item" style="border-color:var(--gold);">
+      <div class="label">EXAMPLE</div>
+      <div class="title">例子</div>
+      <div class="desc">给它一个参照<br>参考范文，照着那个味儿</div>
+    </div>
+  </div>
+
+  <div class="template">
+    <span class="template-label">完整示例</span>
+<pre><span class="key">你是一位有10年经验的青浦海关宣传干部</span>（角色），
+<span class="key">帮我写一篇综保区"新9条"政策宣讲会新闻稿</span>（任务），
+<span class="key">600字、三段式、客观严谨、不用"重磅"</span>（要求），
+<span class="key">参考这篇范文：{贴一篇你们发过的好稿子}</span>（例子）</pre>
+  </div>
+
+  <div class="highlight">
+    <div class="quote">比喻：跟AI说话像<span>点菜</span>。你说"来点吃的"，它只能随机上一桌；你说清"四个人、不吃辣、人均一百、有小孩"，它才能给你一桌好菜。<br><span style="font-size:16px;">定义参考：Google Cloud / OpenAI官方指南</span></div>
+  </div>
+</section>
+
+<!-- 三级对比 -->
+<section class="section" id="compare">
+  <div class="section-label">REAL CASE</div>
+  <h2 class="section-title">真实案例：从青铜到王者</h2>
+  <div class="divider"></div>
+  <p class="section-desc">用8月28日青浦真实举办的"e企聚势·数智扬帆"企业出海沙龙做案例。同一个AI、同一个任务，三种提问方式，三种完全不同的结果。</p>
+  
+  <div class="compare-row">
+    <div class="compare-card bronze">
+      <div class="level">🥉 青铜 · 普通人随便说</div>
+      <h4>"帮我写个宣传稿"</h4>
+      <div class="prompt">帮我写一篇企业出海沙龙的新闻稿</div>
+      <div class="result"><strong>结果：</strong>AI先查出海趋势，给了一篇全是【】占位符的填空模板，还列了需要补充的信息清单。<br><br><strong>能用吗？</strong>不能用，全是空格。</div>
+    </div>
+    <div class="compare-card silver">
+      <div class="level">🥈 白银 · 提示词工程</div>
+      <h4>用公式说清楚</h4>
+      <div class="prompt">你是10年经验政务新闻编辑。写一篇"e企聚势·数智扬帆"企业出海沙龙新闻稿：600字，分三段，语气客观严谨，突出跨境电商和政策支持。</div>
+      <div class="result"><strong>结果：</strong>有了具体政策数据（178个综试区、跨关区退货模式、离境即退税），但活动具体信息（日期、地点、嘉宾）还是【】。<br><br><strong>能用吗？</strong>能用了，但像模板，没有灵魂。</div>
+    </div>
+    <div class="compare-card gold">
+      <div class="level">🥇 王者 · 上下文工程</div>
+      <h4>公式 + 完整背景素材</h4>
+      <div class="prompt">公式 + 完整活动素材：时间8月28日、地点青浦e通世界产业园、主办青浦区新联会+e通世界产业园、7场分享嘉宾姓名职务、企业反馈...</div>
+      <div class="result"><strong>结果：</strong>直接出完整成品，所有信息填好，有具体嘉宾内容，AI还诚实说明"素材中没提到青浦海关，所以通过综保区职能体现，没有虚构内容"。<br><br><strong>能用吗？</strong>能直接用，有细节、有温度、有高度。</div>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <div class="quote">同一个AI，同一个任务，三次输出，天差地别。<br>差别在哪？<span>不是AI变了，是你给的信息变了。</span><br>提示词工程告诉你"怎么说"，上下文工程告诉你"说多少"。</div>
+  </div>
+
+  <p style="text-align:center;margin-top:30px;color:var(--text-light);font-size:14px;">👉 点击顶部导航栏「文案演示」「出图演示」查看完整课堂演示成品</p>
+</section>
+
+<!-- 上下文工程 -->
+<section class="section" id="context" style="background: var(--white);">
+  <div class="section-label">CONTEXT ENGINEERING</div>
+  <h2 class="section-title">上下文工程：给AI配齐背景材料</h2>
+  <div class="divider"></div>
+  <p class="section-desc">提示词管"这一次说什么"，上下文管"它长期记得什么"。复杂任务里，AI缺的不是聪明，是信息没给够。</p>
+  
+  <div class="highlight" style="margin-bottom: 40px;">
+    <div class="quote">"别只改提示词，要设计AI周围的完整信息环境。"</div>
+    <div class="source">—— 斯坦福大学2026年CS224G新课 · 上下文工程</div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h4><span class="icon">🤢</span>上下文腐烂</h4>
+      <p><strong>现象：</strong>给AI塞的资料越多，它反而越记不住重点<br><strong>比喻：</strong>吃太饱，消化不良<br><strong>建议：</strong>一次只喂需要的，资料少而精</p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">🙈</span>中间迷失</h4>
+      <p><strong>现象：</strong>长上下文中，放在中间的信息最容易被忽略<br><strong>比喻：</strong>电梯汇报，先说结论<br><strong>建议：</strong>最重要的指令放最前面，其次放最后</p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">🔄</span>回退清理</h4>
+      <p><strong>现象：</strong>聊岔了继续纠正，AI会越纠越偏<br><strong>比喻：</strong>炒糊了重新起锅<br><strong>建议：</strong>发现跑偏，回到出错前重开一条线</p>
+    </div>
+  </div>
+
+  <div class="highlight" style="margin-top: 30px;">
+    <div class="quote">提示词错了只影响这一次，<span>上下文错了影响之后每一次。</span><br>打个比方：提示词是你今天交给员工的活儿；上下文是这个员工的"岗位说明书 + 工作笔记 + 资料柜"。</div>
+  </div>
+</section>
+
+<!-- 成长阶梯 -->
+<section class="section" id="ladder">
+  <div class="section-label">GROWTH</div>
+  <h2 class="section-title">从一句话到数字员工：Prompt、Skill、Agent</h2>
+  <div class="divider"></div>
+  <p class="section-desc">AI的用法有三个层次，今天学的是第一层，但后面两层要知道方向。</p>
+  
+  <div class="ladder">
+    <div class="ladder-step">
+      <div class="step-box">
+        <div class="step-label">LEVEL 1</div>
+        <h4>Prompt 提示词</h4>
+        <p>一次性的任务交代。每次跟AI说话，用公式说清楚。适合一次性的、不重复的任务。</p>
+      </div>
+    </div>
+    <div class="ladder-arrow">→</div>
+    <div class="ladder-step">
+      <div class="step-box">
+        <div class="step-label">LEVEL 2</div>
+        <h4>Skill 技能</h4>
+        <p>把固定流程封装成"技能包"。一次写好，反复调用。适合重复、流程固定、输出统一的任务。</p>
+      </div>
+    </div>
+    <div class="ladder-arrow">→</div>
+    <div class="ladder-step">
+      <div class="step-box">
+        <div class="step-label">LEVEL 3</div>
+        <h4>Agent 智能体</h4>
+        <p>会自己拆任务、调资源的"数字员工"。你给目标，它自己安排先做什么、后做什么。适合多步推进、中途要判断的复杂任务。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h4><span class="icon">✅</span>适合做Skill的活</h4>
+      <p><strong>三个特点：</strong>重复、流程固定、输出格式统一<br>比如：周报、会议纪要、海报文案、视频字幕、政策问答初稿</p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">✅</span>适合上Agent的活</h4>
+      <p><strong>三个特点：</strong>多步推进、中途判断、多工具切换<br>比如：跨部门素材收集、长报告生成、多平台内容分发</p>
+    </div>
+  </div>
+
+  <div class="highlight" style="margin-top: 30px;">
+    <div class="quote">好记的版本：<span>固定动作做Skill，复杂流程上Agent，重复工作靠上下文工程喂好材料，提示词工程保证每次都说得清楚。</span></div>
+  </div>
+</section>
+
+<!-- 让AI认识你 -->
+<section class="section" id="know-you" style="background: var(--white);">
+  <div class="section-label">PERSONALIZATION</div>
+  <h2 class="section-title">让AI认识你，比学会十个技巧都管用</h2>
+  <div class="divider"></div>
+  <p class="section-desc">用AI之前，先让AI认识你。给它做一次"入职培训"，以后配合就顺畅了。花10分钟做这个，换以后几百小时的省心。</p>
+  
+  <div class="card" style="max-width: 800px; margin: 0 auto; margin-bottom: 24px;">
+    <h4 style="margin-bottom: 20px;">📝 给AI的入职说明：写清这六点</h4>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div style="padding: 16px; background: var(--bg); border-radius: 8px;">
+        <strong style="color: var(--gold-dark);">1. 你是谁</strong><br><span style="font-size:13px;color:var(--text-light);">AI的角色定位</span>
+      </div>
+      <div style="padding: 16px; background: var(--bg); border-radius: 8px;">
+        <strong style="color: var(--gold-dark);">2. 我是谁</strong><br><span style="font-size:13px;color:var(--text-light);">你的身份和岗位</span>
+      </div>
+      <div style="padding: 16px; background: var(--bg); border-radius: 8px;">
+        <strong style="color: var(--gold-dark);">3. 读者是谁</strong><br><span style="font-size:13px;color:var(--text-light);">目标受众</span>
+      </div>
+      <div style="padding: 16px; background: var(--bg); border-radius: 8px;">
+        <strong style="color: var(--gold-dark);">4. 风格是什么</strong><br><span style="font-size:13px;color:var(--text-light);">语气、禁忌词</span>
+      </div>
+      <div style="padding: 16px; background: var(--bg); border-radius: 8px;">
+        <strong style="color: var(--gold-dark);">5. 输出格式</strong><br><span style="font-size:13px;color:var(--text-light);">字数、结构、标题数量</span>
+      </div>
+      <div style="padding: 16px; background: var(--bg); border-radius: 8px;">
+        <strong style="color: var(--gold-dark);">6. 安全红线</strong><br><span style="font-size:13px;color:var(--text-light);">什么信息不能用</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="highlight" style="max-width: 800px; margin: 0 auto;">
+    <div class="quote" style="font-size:18px;">
+      💡 <span>在哪里设置？</span><br>
+      豆包APP/网页版 → 我的 → 设置 → <span>自定义指令</span>（或"偏好设置"）<br>
+      把上面六点写进去，以后每次对话AI自动记住，不用重复说。
+    </div>
+  </div>
+</section>
+
+<!-- WorkBuddy -->
+<section class="section" id="workbuddy">
+  <div class="section-label">DESKTOP AGENT</div>
+  <h2 class="section-title">WorkBuddy和豆包工作：两个能直接干活的工具</h2>
+  <div class="divider"></div>
+  <p class="section-desc">前面的AI都是"动嘴"：给你答案、给你图、给你视频。但桌面智能体——动手。它跑在你电脑上，你一句话，它自己打开文件、自己点鼠标、自己把成品存好。</p>
+  
+  <div class="grid-2">
+    <div class="card">
+      <h4><span class="icon">💼</span>WorkBuddy（腾讯）</h4>
+      <p><strong>推出时间：</strong>2026年3月<br><strong>核心能力：</strong>处理本地文件，授权后直接读写你电脑上的文件夹<br><strong>擅长：</strong>批量改文件名、整理表格、做PPT、分析数据<br><strong>特色：</strong>支持微信远程指挥</p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">🖥️</span>豆包工作（字节）</h4>
+      <p><strong>推出时间：</strong>2026年8月上线"虚拟桌面"<br><strong>核心能力：</strong>AI在独立后台桌面里自己动鼠标，不抢你眼前的屏幕<br><strong>擅长：</strong>打通飞书、钉钉200多个技能<br><strong>特色：</strong>人在外面，可用手机远程指挥家里电脑干活</p>
+    </div>
+  </div>
+
+  <div class="highlight" style="margin-top: 30px;">
+    <div class="quote">桌面智能体的规矩：<span>你交代、它执行、你审核。</span><br>政务场景记住：整理公开材料可以，涉密文件别让它碰。授权要最小——只给它"允许碰的文件夹"，就像家里请保洁，只给需要打扫的房间钥匙。</div>
+  </div>
+</section>
+
+<!-- 能力素养 -->
+<section class="section" id="ability" style="background: var(--white);">
+  <div class="section-label">MINDSET</div>
+  <h2 class="section-title">AI时代的能力素养</h2>
+  <div class="divider"></div>
+  <p class="section-desc">工具会换，但有些能力永远不会过时。这是用好AI的底层素质。</p>
+  
+  <div class="grid-3">
+    <div class="card" style="text-align:center;">
+      <div style="font-size:36px;margin-bottom:12px;">🎯</div>
+      <h4 style="justify-content:center;">目标感</h4>
+      <p>知道自己要什么，才能让AI帮你做什么。目标越清晰，AI输出越精准。</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:36px;margin-bottom:12px;">📝</div>
+      <h4 style="justify-content:center;">表达力</h4>
+      <p>能把需求说清楚的人，才能用好AI。提示词的本质是清晰表达。</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:36px;margin-bottom:12px;">🔍</div>
+      <h4 style="justify-content:center;">判断力</h4>
+      <p>AI给的是初稿，你是终审。能分辨对错、好坏，才是核心竞争力。</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:36px;margin-bottom:12px;">🔄</div>
+      <h4 style="justify-content:center;">迭代力</h4>
+      <p>一次不行就改，改到满意为止。跟AI合作是一个反复迭代的过程。</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:36px;margin-bottom:12px;">🛡️</div>
+      <h4 style="justify-content:center;">底线感</h4>
+      <p>知道什么能做、什么不能做。保密、真实、审核——红线不破。</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:36px;margin-bottom:12px;">📚</div>
+      <h4 style="justify-content:center;">学习力</h4>
+      <p>AI每天都在变，保持好奇、持续学习。今天学的是方法，不是某个工具。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 工作台彩蛋 -->
+<section class="section" id="workbench">
+  <div class="section-label">PREVIEW</div>
+  <h2 class="section-title">彩蛋：AI宣传工作台</h2>
+  <div class="divider"></div>
+  <p class="section-desc">今天不要求大家会搭，先让大家看到一个方向。AI不只是聊天工具，还能帮我们管工作、做统计、沉淀知识。第6课我们手把手教大家搭。</p>
+  
+  <div class="grid-3">
+    <div class="card">
+      <h4><span class="icon">📊</span>宣传工作台账</h4>
+      <p>每篇发的稿子都记在这里——标题、时间、平台、稿件类型、阅读量、点赞转发。以后发完稿花30秒填一行，月底统计直接出数。</p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">📡</span>舆情监测台账</h4>
+      <p>监测到的舆情记在这里——日期、平台、内容摘要、敏感度、处置情况、回复口径。出了事能倒查，这是宣传口的硬职责。</p>
+    </div>
+    <div class="card">
+      <h4><span class="icon">💡</span>常用提示词库</h4>
+      <p>今天学的提示词，用熟了以后存在这里——写稿的、改标题的、政策解读的、一稿多版本的，下次用直接复制。</p>
+    </div>
+  </div>
+
+  <div class="highlight" style="margin-top: 30px;">
+    <div class="quote">最厉害的是<span>数据看板</span>：数据填进去，看板自动出图——这个月发了多少篇、各平台占多少、总阅读量多少、哪篇是爆款。以后写工作总结，不用再做Excel透视表了。</div>
+  </div>
+</section>
+
+<!-- 课后作业 -->
+<section class="section" id="homework" style="background: var(--white);">
+  <div class="section-label">HOMEWORK</div>
+  <h2 class="section-title">课后作业</h2>
+  <div class="divider"></div>
+  <p class="section-desc">用今天的公式+上下文，让AI帮你写一件工作上的小事。明天带着结果来。</p>
+  
+  <div class="grid-3">
+    <div class="card" style="border-left: 4px solid var(--gold);">
+      <h4>📰 写新闻稿</h4>
+      <p>把你们最近一次活动的素材给AI，用万能公式让它写初稿。对比你自己写的，看看差别在哪。</p>
+    </div>
+    <div class="card" style="border-left: 4px solid var(--gold);">
+      <h4>✏️ 改标题</h4>
+      <p>把你们最近一篇稿子的标题给AI，让它改5个版本，每个版本突出不同的角度。</p>
+    </div>
+    <div class="card" style="border-left: 4px solid var(--gold);">
+      <h4>🎨 做海报方案</h4>
+      <p>描述你们要做的宣传海报，让AI出设计方案（不用生成图片，先要文字方案）。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 结尾 -->
+<section class="footer">
+  <h3>现在，你可以带着一张地图开始了</h3>
+  <p><strong style="color:var(--gold);">AI是工具，你是大脑。</strong></p>
+  <p>提示词工程：角色 + 任务 + 要求 + 例子</p>
+  <p>上下文工程：给的信息越全，输出质量越高</p>
+  <p>红线不破，技巧才有意义</p>
+  <p style="margin-top:30px;font-size:12px;opacity:0.5;">青浦海关 · AI应用系列 · 第一课 认识AI<br>讲师：露梵娜传媒AI智能体赋能商业</p>
+</section>
+
+</div>
+
+</div><!-- /tab-course -->
+
+<!-- 标签页：文案演示 -->
+<div class="tab-content" id="tab-demo-text">
+  <iframe src="课堂演示成品/真实案例_8月28日/课堂演示成品全集.html" class="tab-full"></iframe>
+</div>
+
+<!-- 标签页：出图演示 -->
+<div class="tab-content" id="tab-demo-image">
+  <iframe src="课堂演示成品/提示词工程实战案例_封面图三级对比.html" class="tab-full"></iframe>
+</div>
+
+<!-- 标签页：工作台 -->
+<div class="tab-content" id="tab-workbench">
+  <div style="max-width:1000px;margin:0 auto;padding:60px 40px;">
+    <div class="section-label">WORKBENCH</div>
+    <h2 class="section-title">宣传口台账工作台</h2>
+    <div class="divider"></div>
+    <p class="section-desc">用飞书多维表格搭建的宣传口工作台，第6课手把手教大家搭。现在先看看长什么样。</p>
+    
+    <div class="card" style="margin-bottom:30px;">
+      <h4><span class="icon">📊</span>青浦海关宣传口·台账工作台</h4>
+      <p style="margin-bottom:20px;"><strong>三张表：</strong>宣传工作台账、舆情监测台账、常用提示词库<br><strong>一个看板：</strong>发稿量、平台占比、阅读量趋势、爆款识别<br><strong>用法：</strong>发完稿花30秒填一行，月底统计直接出数</p>
+      <a href="https://iviwgkucy86.feishu.cn/base/Q4m5bPxPdaza9NsCljWc1UYdn7e?table=blkGCB1W23nEyepg" target="_blank" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,var(--navy),var(--navy-mid));color:var(--gold);text-decoration:none;border-radius:8px;font-weight:600;font-size:15px;">↗ 打开飞书多维表格演示</a>
+    </div>
+    
+    <div class="grid-3">
+      <div class="card">
+        <h4><span class="icon">📝</span>宣传工作台账</h4>
+        <p>记录每篇发稿：日期、平台、标题、作者、阅读量、链接<br><br>自动统计：本月发稿量、各平台占比、作者工作量</p>
+      </div>
+      <div class="card">
+        <h4><span class="icon">📡</span>舆情监测台账</h4>
+        <p>记录舆情事件：时间、来源、内容、处置情况、结果<br><br>自动统计：舆情趋势、高频关键词、处置时效</p>
+      </div>
+      <div class="card">
+        <h4><span class="icon">💡</span>常用提示词库</h4>
+        <p>沉淀好用的提示词：场景、提示词内容、使用效果、评分<br><br>团队共享：好提示词不用重复造轮子</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 标签页：AI伙伴 -->
+<div class="tab-content" id="tab-ai-partner">
+  <div style="max-width:1000px;margin:0 auto;padding:60px 40px;">
+    <div class="section-label">AI PARTNER SETUP</div>
+    <h2 class="section-title">创建你的AI工作伙伴</h2>
+    <div class="divider"></div>
+    <p class="section-desc">花10分钟给AI做入职培训，换以后几百小时的省心。推荐WorkBuddy和豆包工作同时用，都有算力扶持。</p>
+    
+    <!-- 为什么要做入职培训 -->
+    <div class="card" style="margin-bottom:30px;">
+      <h4 style="margin-bottom:16px;"><span class="icon">🎯</span>为什么要做"入职培训"？</h4>
+      <div class="highlight" style="padding:24px;margin-bottom:16px;">
+        <div class="quote" style="font-size:16px;">大家想想，你们单位新来一个实习生，你会怎么带他？第一天，你会告诉他：你是谁、我是谁、咱们科室干什么活、什么标准算合格、遇到事怎么跟我汇报、什么事必须先问我。对吧？你不会第一天就把一堆活扔给他，说"你自己看着办"。AI也是一样。</div>
+      </div>
+      <p><strong>核心理念：</strong>不要"入职定终身"，要"边用边养"。今天打个底，以后慢慢调。不要把AI框死，给它留点空间，它会给你惊喜。</p>
+    </div>
+    
+    <!-- 两个工具都有算力扶持 -->
+    <div class="highlight" style="margin-bottom:30px;">
+      <div class="quote" style="font-size:18px;">
+        💡 <span>两个工具同时用，都有算力扶持：</span><br>
+        <strong>WorkBuddy（腾讯）</strong>——处理本地文件强，微信远程方便<br>
+        <strong>豆包工作（字节）</strong>——虚拟桌面不抢屏，飞书技能多，手机远程指挥
+      </div>
+    </div>
+    
+    <!-- 三层方案 -->
+    <div class="card" style="margin-bottom:30px;">
+      <h4 style="margin-bottom:20px;"><span class="icon">📊</span>三层方案（学员自选）</h4>
+      <div class="grid-3">
+        <div style="padding:20px;background:var(--bg);border-radius:10px;border-top:4px solid #888;">
+          <div style="font-size:24px;font-weight:700;color:#888;margin-bottom:8px;">3min</div>
+          <h4 style="color:#888;margin-bottom:8px;">极简版</h4>
+          <p style="font-size:13px;">3个问题·3分钟<br>给怕麻烦的学员，先跑起来，以后再完善</p>
+        </div>
+        <div style="padding:20px;background:var(--bg);border-radius:10px;border-top:4px solid var(--navy);">
+          <div style="font-size:24px;font-weight:700;color:var(--navy);margin-bottom:8px;">10min</div>
+          <h4 style="color:var(--navy);margin-bottom:8px;">标准版 ⭐推荐</h4>
+          <p style="font-size:13px;">6个问题·10分钟<br>大多数人选这个，关键信息都覆盖到</p>
+        </div>
+        <div style="padding:20px;background:var(--bg);border-radius:10px;border-top:4px solid var(--gold);">
+          <div style="font-size:24px;font-weight:700;color:var(--gold-dark);margin-bottom:8px;">课后</div>
+          <h4 style="color:var(--gold-dark);margin-bottom:8px;">进阶版</h4>
+          <p style="font-size:13px;">8-10个问题·课后做<br>想把AI养得特别懂自己的学员，课后慢慢完善</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- AI入职面试官提示词 -->
+    <div class="card" style="margin-bottom:30px;">
+      <h4 style="margin-bottom:16px;"><span class="icon">🎤</span>标准版：AI入职面试官提示词（推荐）</h4>
+      <p style="margin-bottom:16px;">把下面这段提示词复制到WorkBuddy或豆包工作，AI会自动采访你，最后帮你整理成说明书+精简版设置。</p>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:12px;line-height:1.7;color:var(--text);white-space:pre-wrap;max-height:400px;overflow-y:auto;"># 角色
+你是一位专业的"AI工作伙伴入职面试官"，专门帮助政务宣传口的工作人员，通过对话采访的方式，梳理出一份个性化的"个人AI工作伙伴说明书"。
+
+# 你的任务
+通过6个方面的提问，帮助我想清楚：我是谁、我干什么活、我要AI帮我做什么、什么标准算合格、我们怎么沟通、什么事必须我把关。
+
+# 采访规则（非常重要）
+1. 一次只问一个问题，等我回答后再问下一个
+2. 每个问题开头，先用一句话说明"为什么问这个问题"
+3. 如果我的回答太模糊，可以追问1-2个具体问题
+4. 不要替我回答，不要编造我的信息
+5. 全程用轻松、鼓励的语气，像朋友聊天一样
+
+# 采访框架（6个方面）
+1. 认识你：岗位和日常工作、服务对象是谁
+2. 工作内容：最常写的三类内容、最耗时头疼的事
+3. AI帮你做什么：如果只能先帮一件事，最希望是什么
+4. 你的标准：合格的新闻稿/公众号推文是什么样
+5. 怎么沟通：任务不明确时先问还是先做、多步骤怎么汇报
+6. 权限边界：哪些事AI绝对不能自己做主
+
+# 采访结束后
+整理成两份：
+1. 完整版《个人AI工作伙伴说明书》
+2. 精简版（500-800字，可直接复制到自定义指令）
+
+# 现在开始
+先做个简单的自我介绍，然后问第一个问题。</div>
+    </div>
+    
+    <!-- 自定义指令参考模板 -->
+    <div class="card" style="margin-bottom:30px;">
+      <h4 style="margin-bottom:16px;"><span class="icon">📝</span>政务宣传口·自定义指令参考模板</h4>
+      <p style="margin-bottom:16px;">不想被AI采访？直接复制下面这个模板，修改成自己的信息，粘贴到WorkBuddy或豆包工作的"自定义指令"里。</p>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:12px;line-height:1.7;color:var(--text);white-space:pre-wrap;max-height:500px;overflow-y:auto;">我是青浦海关宣传科工作人员，主要负责新闻宣传、新媒体运营和政策解读。你是我的AI工作伙伴，协助我完成宣传工作。
+
+【你的角色】
+- 有10年政务宣传经验的助手，熟悉海关业务和政务写作规范
+- 了解青浦海关特色：进博会、综保区、跨境电商、AEO认证等
+
+【你擅长的工作】
+1. 整理素材：把活动记录、会议纪要、企业反馈整理成结构化素材
+2. 生成初稿：新闻稿、公众号推文、政策解读的初稿
+3. 优化辅助：改标题、调结构、润色语言、查错别字
+
+【输出标准】
+- 新闻稿：600-800字，三段式，客观严谨，用数据说话
+- 公众号推文：口语化标题，短段落，结尾有互动
+- 政策解读：要点提炼+大白话解释+企业怎么办
+- 不用"重磅""震惊"等夸张用语，不用网络梗
+
+【沟通规则】
+- 任务不明确时，先问3个关键问题再动手
+- 涉及企业名称、数据、政策口径，必须提醒我核实
+- 多步骤任务每完成一步汇报进度
+- 发现我的要求有问题，必须直接指出来
+
+【权限边界】
+- 可以直接做：整理素材、生成初稿、改错别字、调格式
+- 必须先确认：删除文件、修改已审核稿件、任何对外发送
+- 绝对不做：替我审批、替我回应舆情、编造数据、泄露内部信息
+
+【安全红线】
+- 内部文件、未公开数据、企业商业秘密，不输入不传播
+- AI生成的图片/视频，不冒充新闻现场照片
+- 所有对外发布内容，必须走三审三校
+- AI生成内容必须标注"AI生成"
+
+【不要自我设限】
+除了上面说的工作，遇到其他任务你也可以尝试。能做的就做，做不了的告诉我。</div>
+    </div>
+    
+    <!-- 基础设置清单 -->
+    <div class="card">
+      <h4 style="margin-bottom:20px;"><span class="icon">⚙️</span>基础设置清单（WorkBuddy + 豆包工作）</h4>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead>
+            <tr style="background:var(--navy);color:var(--gold);">
+              <th style="padding:12px;text-align:left;border-radius:8px 0 0 0;">设置项</th>
+              <th style="padding:12px;text-align:left;">推荐设置</th>
+              <th style="padding:12px;text-align:left;border-radius:0 8px 0 0;">为什么</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px;"><strong>文件存储路径</strong></td>
+              <td style="padding:10px;">建专门文件夹，不存系统盘</td>
+              <td style="padding:10px;color:var(--text-light);">避免C盘占满，文件统一管理</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:var(--bg);">
+              <td style="padding:10px;"><strong>权限授权</strong></td>
+              <td style="padding:10px;">只授权桌面、文档、下载</td>
+              <td style="padding:10px;color:var(--text-light);">安全第一，避免AI误操作系统文件</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px;"><strong>工作模式</strong></td>
+              <td style="padding:10px;">新手先用"计划（Plan）"模式</td>
+              <td style="padding:10px;color:var(--text-light);">先列计划确认再执行，避免翻车</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);background:var(--bg);">
+              <td style="padding:10px;"><strong>记忆开关</strong></td>
+              <td style="padding:10px;">打开"对话记忆"+"技能沉淀"</td>
+              <td style="padding:10px;color:var(--text-light);">AI会记住你的习惯，越用越懂你</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px;"><strong>自定义指令</strong></td>
+              <td style="padding:10px;">粘贴上面的精简版设置</td>
+              <td style="padding:10px;color:var(--text-light);">一次性告诉AI你的规矩，以后省心</td>
+            </tr>
+            <tr style="background:var(--bg);">
+              <td style="padding:10px;"><strong>算力扶持</strong></td>
+              <td style="padding:10px;">两个工具都有免费额度，都注册</td>
+              <td style="padding:10px;color:var(--text-light);">WorkBuddy处理文件强，豆包工作虚拟桌面方便</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 标签页：课程预览 -->
+<div class="tab-content" id="tab-preview">
+  <iframe src="https://15921203155-collab.github.io/qingpu-ai-course-preview/" class="tab-full"></iframe>
+</div>
+
+<!-- 标签页：提示词库 -->
+<div class="tab-content" id="tab-prompts">
+  <div style="max-width:1000px;margin:0 auto;padding:60px 40px;">
+    <div class="section-label">PROMPT LIBRARY</div>
+    <h2 class="section-title">万能提示词模板库</h2>
+    <div class="divider"></div>
+    <p class="section-desc">所有模板都基于「角色 + 任务 + 要求 + 例子」公式，直接复制填空就能用。</p>
+    
+    <div class="card" style="margin-bottom:24px;">
+      <h4><span class="icon">📰</span>政务新闻稿</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">你是一位有10年经验的海关宣传干部。根据以下素材写一篇政务新闻稿：
+{素材}
+要求：标题简洁有力，正文分三段（背景、举措、成效），600字以内，语气客观严谨，不用"重磅""震惊"等夸张词。</div>
+    </div>
+    
+    <div class="card" style="margin-bottom:24px;">
+      <h4><span class="icon">📖</span>政策解读（三步法）</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">第一步：请总结下面这段政策的三个核心要点，每个要点不超过30字。
+{政策原文}
+第二步：请用大白话，把这三个要点解读给中小企业老板听：先说对他有什么用，再说怎么申请，最后列注意事项。可以打比方。
+第三步：再帮我把它整理成"一图读懂"的文案结构：一个主标题、三个核心要点，每个要点配一句不超过30字的白话解释。</div>
+    </div>
+    
+    <div class="card" style="margin-bottom:24px;">
+      <h4><span class="icon">📱</span>公众号推文+标题</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">根据这篇材料写一条政务公众号推文：
+{材料}
+要求：标题控制在20字内且不说"震惊""重磅"，正文口语化但不失严谨，配"一图读懂"的分点结构。
+再给这篇推文想5个公众号标题，要求：不超过20字，突出"对企业有什么用"。</div>
+    </div>
+    
+    <div class="card" style="margin-bottom:24px;">
+      <h4><span class="icon">🧠</span>思维链（复杂分析）</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">请先列出{问题}涉及的几个方面，再分别分析，最后给出你的结论和建议。</div>
+    </div>
+    
+    <div class="card" style="margin-bottom:24px;">
+      <h4><span class="icon">📋</span>少样本（给范文）</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">这是我们以前发过的一篇新闻稿（范文）：
+{范文全文}
+请按照这个标题风格和段落结构，写一篇关于{新主题}的新稿。</div>
+    </div>
+    
+    <div class="card" style="margin-bottom:24px;">
+      <h4><span class="icon">🛡️</span>能力边界（防幻觉）</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">只基于以下材料回答，不要补充网上信息：
+{材料}
+如果材料中没有提到，就明确说"材料未提及"。</div>
+    </div>
+    
+    <div class="card" style="margin-bottom:24px;">
+      <h4><span class="icon">🎨</span>作图提示词</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">生成一张{类型}，标题文字："{标题}"。画面：{主体+场景}，{风格}，{画幅，如横版16:9}。
+示例：生成一张政策宣传海报，标题文字："综保区新9条，企业出海更顺"。画面：通关口岸、集装箱、货轮，政务蓝色调，简洁大气，横版16:9。</div>
+    </div>
+    
+    <div class="card" style="margin-bottom:24px;">
+      <h4><span class="icon">🎬</span>视频脚本</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">把下面的政策要点，改写成一段60秒短视频口播脚本：
+{政策要点}
+结构：开头5秒钩子（提问式）、中间三个要点（每点不超过30字）、结尾一句号召。口语化，像海关干部在镜头前说话。</div>
+    </div>
+    
+    <div class="card">
+      <h4><span class="icon">💻</span>桌面智能体指令</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">帮我把这个文件夹里的文件，按"{分类1}、{分类2}、{分类3}"三类，各整理到一个子文件夹里。</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// 顶部标签切换
+const topTabs = document.querySelectorAll('.topnav-tab');
+const tabContents = document.querySelectorAll('.tab-content');
+
+topTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.getAttribute('data-tab');
+    topTabs.forEach(t => t.classList.remove('active'));
+    tabContents.forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-' + target).classList.add('active');
+    window.scrollTo(0, 0);
+  });
+});
+
+// 侧边导航高亮
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.sidebar nav a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+    if (window.scrollY >= sectionTop - 200) {
+      current = section.getAttribute('id');
+    }
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+});
+
+// 平滑滚动
+navLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>

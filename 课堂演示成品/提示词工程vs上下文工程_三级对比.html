@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>提示词工程 vs 上下文工程：三级对比实战</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #0a1628;
+    color: #e0e0e0;
+    padding: 30px 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle {
+    text-align: center;
+    color: #78909c;
+    font-size: 15px;
+    margin-bottom: 36px;
+  }
+  .case-section {
+    margin-bottom: 40px;
+  }
+  .case-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(79,195,247,0.3);
+  }
+  .case-title .icon { margin-right: 8px; }
+  .levels {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .level {
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+    padding: 16px;
+    border-top: 4px solid;
+  }
+  .level-1 { border-color: #ef6c00; }
+  .level-2 { border-color: #1976d2; }
+  .level-3 { border-color: #2e7d32; }
+  .level-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .level-badge {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px;
+    flex-shrink: 0; color: #fff;
+  }
+  .level-1 .level-badge { background: #ef6c00; }
+  .level-2 .level-badge { background: #1976d2; }
+  .level-3 .level-badge { background: #2e7d32; }
+  .level-name { font-size: 14px; font-weight: 600; }
+  .level-desc { font-size: 11px; color: #78909c; }
+  .prompt-box {
+    background: rgba(0,0,0,0.3);
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 11px;
+    color: #ffcc80;
+    line-height: 1.5;
+    max-height: 80px;
+    overflow-y: auto;
+  }
+  .prompt-box .label {
+    color: #78909c; font-size: 10px;
+    margin-bottom: 3px; font-family: inherit;
+  }
+  .result-image {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 8px;
+  }
+  .result-text {
+    background: rgba(255,255,255,0.03);
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 11px;
+    line-height: 1.6;
+    color: #b0bec5;
+    max-height: 120px;
+    overflow-y: auto;
+  }
+  .result-text .news-title {
+    font-weight: 600; color: #e0e0e0;
+    margin-bottom: 6px; font-size: 12px;
+  }
+  .analysis {
+    margin-top: 8px;
+    font-size: 11px;
+    line-height: 1.5;
+    padding: 6px 8px;
+    border-radius: 4px;
+  }
+  .level-1 .analysis { background: rgba(239,108,0,0.12); color: #ffcc80; }
+  .level-2 .analysis { background: rgba(25,118,210,0.12); color: #90caf9; }
+  .level-3 .analysis { background: rgba(46,125,50,0.12); color: #a5d6a7; }
+  .conclusion-box {
+    background: linear-gradient(135deg, rgba(41,128,185,0.2), rgba(52,152,219,0.1));
+    border-radius: 16px;
+    padding: 28px;
+    margin-top: 32px;
+    border: 1px solid rgba(52,152,219,0.3);
+  }
+  .conclusion-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #4fc3f7;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .conclusion-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .conclusion-item {
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .conclusion-item h3 {
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .conclusion-item p {
+    font-size: 13px;
+    color: #b0bec5;
+    line-height: 1.6;
+  }
+  .final-quote {
+    text-align: center;
+    margin-top: 28px;
+    padding: 20px;
+    font-size: 17px;
+    color: #b0bec5;
+    line-height: 1.8;
+  }
+  .final-quote strong {
+    color: #4fc3f7;
+    font-size: 20px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>提示词工程 vs 上下文工程</h1>
+  <p class="subtitle">三级对比实战：普通人随便说 → 提示词工程 → 上下文工程</p>
+
+  <!-- 案例一：封面图 -->
+  <div class="case-section">
+    <div class="case-title"><span class="icon">🖼️</span>案例一：公众号封面图</div>
+    <div class="levels">
+      <!-- Level 1 -->
+      <div class="level level-1">
+        <div class="level-header">
+          <div class="level-badge">1</div>
+          <div>
+            <div class="level-name">普通人随便说</div>
+            <div class="level-desc">有主题，但不系统</div>
+          </div>
+        </div>
+        <div class="prompt-box">
+          <div class="label">提示词：</div>
+          给我做一个海关政策宣讲的封面图，蓝色的
+        </div>
+        <img class="result-image" src="对比2_基础提示词.jpg" alt="普通人随便说的结果">
+        <div class="analysis">
+          有海关元素了，但文字是"海关政策"不是我们要的，多了个"立即了解更多"按钮，整体像APP启动页。<strong>说了主题，但没说清给谁看、放哪、要什么文字。</strong>
+        </div>
+      </div>
+      <!-- Level 2 -->
+      <div class="level level-2">
+        <div class="level-header">
+          <div class="level-badge">2</div>
+          <div>
+            <div class="level-name">提示词工程</div>
+            <div class="level-desc">角色+任务+要求+例子</div>
+          </div>
+        </div>
+        <div class="prompt-box">
+          <div class="label">提示词：</div>
+          你是政务新媒体设计师。为"综保区新9条政策宣讲进企业"设计公众号封面：横版2.35:1，深蓝渐变，左文字右视觉，主标题"综保区新9条"白色粗体，副标题"政策宣讲进企业"，右侧3D集装箱+飞机航线
+        </div>
+        <img class="result-image" src="封面图_现代政务风.jpg" alt="提示词工程的结果">
+        <div class="analysis">
+          主题准确、文字正确、构图专业、风格统一。<strong>说清了"你是谁、干什么、什么标准"，结果精准。</strong>
+        </div>
+      </div>
+      <!-- Level 3 -->
+      <div class="level level-3">
+        <div class="level-header">
+          <div class="level-badge">3</div>
+          <div>
+            <div class="level-name">上下文工程</div>
+            <div class="level-desc">把整篇稿子作为上下文</div>
+          </div>
+        </div>
+        <div class="prompt-box">
+          <div class="label">提示词：</div>
+          根据以下文章生成封面图。标题：青浦海关送政策进企业。内容：联合区商务委走进跨境电商企业，覆盖20余家，重点讲仓储分类监管、海外仓退税、简化账册管理，企业表示以前看文件一头雾水这次清楚多了。体现海关+企业+政策宣讲+跨境电商
+        </div>
+        <img class="result-image" src="上下文工程_封面图.jpg" alt="上下文工程的结果">
+        <div class="analysis">
+          有宣讲会现场照片、标题准确、还有文章摘要。<strong>AI看到了完整内容，配图和文章高度匹配，不是"猜"主题，是"理解"内容。</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 案例二：新闻稿 -->
+  <div class="case-section">
+    <div class="case-title"><span class="icon">📝</span>案例二：政务新闻稿</div>
+    <div class="levels">
+      <!-- Level 1 -->
+      <div class="level level-1">
+        <div class="level-header">
+          <div class="level-badge">1</div>
+          <div>
+            <div class="level-name">普通人随便说</div>
+            <div class="level-desc">有主题，但不具体</div>
+          </div>
+        </div>
+        <div class="prompt-box">
+          <div class="label">提示词：</div>
+          帮我写一篇海关政策宣讲的新闻稿
+        </div>
+        <div class="result-text">
+          <div class="news-title">海关开展政策宣讲活动</div>
+          近日，海关部门开展政策宣讲活动，向企业解读相关政策。活动现场，海关工作人员详细介绍了政策内容，并回答了企业关心的问题。此次宣讲活动帮助企业更好地了解政策，受到企业欢迎。下一步，海关将继续开展类似活动，助力企业发展。
+        </div>
+        <div class="analysis">
+          有主题了，但没有具体政策、哪个海关、哪些企业，没有字数、结构、语气要求。<strong>还是太泛，像模板。</strong>
+        </div>
+      </div>
+      <!-- Level 2 -->
+      <div class="level level-2">
+        <div class="level-header">
+          <div class="level-badge">2</div>
+          <div>
+            <div class="level-name">提示词工程</div>
+            <div class="level-desc">角色+任务+要求</div>
+          </div>
+        </div>
+        <div class="prompt-box">
+          <div class="label">提示词：</div>
+          你是10年经验的青浦海关宣传干部。写一篇"综保区新9条政策宣讲会走进跨境电商企业"新闻稿：600字，分三段（背景/举措/成效），标题简洁，语气客观严谨，不用"重磅""震惊"
+        </div>
+        <div class="result-text">
+          <div class="news-title">青浦海关送政策进企业 综保区"新9条"助力跨境电商发展</div>
+          近日，青浦海关联合青浦区商务委走进区内重点跨境电商企业，开展综保区"新9条"政策专场宣讲会……宣讲会上，海关业务骨干从政策出台背景、核心条款、适用范围三个方面系统梳理……参会企业负责人表示，此次宣讲会内容实、针对性强……
+        </div>
+        <div class="analysis">
+          角色准确、主题具体、结构清晰、字数达标、语气严谨。<strong>同一个AI，差别就在提示词里。</strong>
+        </div>
+      </div>
+      <!-- Level 3 -->
+      <div class="level level-3">
+        <div class="level-header">
+          <div class="level-badge">3</div>
+          <div>
+            <div class="level-name">上下文工程</div>
+            <div class="level-desc">提供完整活动素材</div>
+          </div>
+        </div>
+        <div class="prompt-box">
+          <div class="label">提示词+素材：</div>
+          【活动素材】时间：9月5日下午。地点：青浦综合保税区会议室。参与：青浦海关+区商务委+23家跨境电商企业。政策：仓储分类监管、海外仓退税、简化账册。企业反馈："以前看文件一头雾水，这次海外仓退税操作流程清楚了"。请根据以上素材写新闻稿，要求同上。
+        </div>
+        <div class="result-text">
+          <div class="news-title">青浦海关送政策进企业 23家跨境电商企业现场受益</div>
+          9月5日下午，青浦海关联合青浦区商务委在青浦综合保税区举办"新9条"政策专场宣讲会，区内23家跨境电商企业参加。宣讲围绕仓储货物按状态分类监管、跨境电商出口海外仓退税、简化账册管理三项核心政策……"以前看政策文件一头雾水，这次海外仓退税的操作流程听完就能落地。"上海某跨境电商企业负责人说……
+        </div>
+        <div class="analysis">
+          有具体时间、地点、企业数量、企业直接引语。<strong>不是"编"新闻，是根据真实素材"写"新闻，专业度完全不同。</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 结论 -->
+  <div class="conclusion-box">
+    <div class="conclusion-title">提示词工程 vs 上下文工程</div>
+    <div class="conclusion-grid">
+      <div class="conclusion-item">
+        <h3>🎯 提示词工程</h3>
+        <p>管"这一次怎么问"——把角色、任务、要求、例子说清楚，让AI往正确方向猜。适合单次、简单的任务。</p>
+      </div>
+      <div class="conclusion-item">
+        <h3>📚 上下文工程</h3>
+        <p>管"AI手里有什么材料"——把完整素材、历史对话、参考范文都给它，让它不是"猜"而是"理解"。适合复杂、专业的任务。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="final-quote">
+    <strong>斯坦福大学2026年新课核心观点：</strong><br>
+    "别只改提示词，要设计AI周围的完整信息环境。"<br>
+    提示词决定方向，上下文决定深度。
+  </div>
+</div>
+</body>
+</html>
