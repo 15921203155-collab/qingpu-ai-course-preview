@@ -1740,66 +1740,212 @@ body {
     <div class="section-label">PROMPT LIBRARY</div>
     <h2 class="section-title">万能提示词模板库</h2>
     <div class="divider"></div>
-    <p class="section-desc">所有模板都基于「角色 + 任务 + 要求 + 例子」公式，直接复制填空就能用。</p>
-    
-    <div class="card" style="margin-bottom:24px;">
+    <p class="section-desc">所有模板都基于「角色 + 任务 + 要求 + 例子」公式，直接复制填空就能用。使用方法：复制模板 → 把{ }里的内容换成你的 → 发给AI → 根据结果修改调整。</p>
+
+    <!-- 基础类 -->
+    <h3 style="color:var(--primary);margin:40px 0 20px;font-size:20px;">一、基础类（所有工作通用）</h3>
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #2563eb;">
+      <h4><span class="icon">🔑</span>万能公式（所有提示词的基础）</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">你是一位{角色，如：有10年经验的海关办公室主任}。
+请帮我{任务，如：写一份会议纪要}。
+背景信息：{补充上下文，如：会议时间、参会人、主要议题}
+要求：{具体要求，如：分议题整理、每项不超过50字、语气正式}
+参考例子：{可选，给一篇范文让AI模仿风格}</div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #2563eb;">
+      <h4><span class="icon">🛡️</span>能力边界（防幻觉，政务必用）</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">只基于以下材料回答，不要补充你自己知道的信息：
+{材料全文}
+如果材料中没有提到，就明确说"材料未提及"，不要编造。
+涉及政策口径、数据、人名、时间地点，必须严格引用原文。</div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #2563eb;">
+      <h4><span class="icon">📋</span>少样本（给范文，模仿风格）</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">这是我们单位以前发过的一篇范文：
+{范文全文}
+请严格按照这个标题风格、段落结构、语气口吻，写一篇关于{新主题}的新稿。
+不要改变范文的格式和用词习惯。</div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #2563eb;">
+      <h4><span class="icon">🧠</span>思维链（复杂问题分析）</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">关于{问题}，请按以下步骤分析：
+第一步：列出这个问题涉及的几个方面
+第二步：每个方面分别分析利弊
+第三步：给出你的结论和具体建议
+不要跳过分析过程直接给结论。</div>
+    </div>
+
+    <!-- 通用工作类 -->
+    <h3 style="color:var(--primary);margin:40px 0 20px;font-size:20px;">二、通用工作类（全体海关工作人员适用）</h3>
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #059669;">
+      <h4><span class="icon">📝</span>会议纪要</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">你是一位经验丰富的办公室秘书。根据以下会议记录整理一份正式会议纪要：
+{会议记录/录音转写文字}
+要求：
+1. 开头写明会议时间、地点、主持人、参会人
+2. 按议题分点整理，每个议题写清"讨论了什么、决定了什么、谁负责"
+3. 待办事项单独列一节，写清任务、责任人、完成时限
+4. 语气正式简洁，不超过1000字</div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #059669;">
+      <h4><span class="icon">📊</span>汇报材料</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">你是一位机关文字工作者。根据以下素材写一份向上级汇报的材料：
+{工作素材/数据/进展}
+汇报对象：{如：关领导/上级海关}
+要求：
+1. 开头一段总述（工作背景+总体成效）
+2. 主体分3-4个部分，每部分有小标题+具体做法+数据支撑
+3. 结尾写存在问题和下一步计划
+4. 语言正式、逻辑清晰、用数据说话，不超过1500字</div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #059669;">
+      <h4><span class="icon">📢</span>通知</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">你是一位机关办公室工作人员。起草一份关于{事项}的通知：
+通知对象：{如：各科室/全体干部}
+核心信息：{时间、地点、要求、联系人}
+要求：
+1. 标题格式：关于{事项}的通知
+2. 正文写清：为什么事、什么时间、什么地点、谁参加、有什么要求
+3. 结尾落款：发文部门+日期
+4. 语言简洁明确，不超过300字</div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #059669;">
+      <h4><span class="icon">✉️</span>工作邮件</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">你是一位专业的机关工作人员。帮我写一封工作邮件：
+收件人：{如：上级单位/协作部门/企业}
+目的：{如：请示工作/协调事项/答复咨询}
+核心内容：{要表达的关键信息}
+要求：
+1. 主题明确（不超过20字）
+2. 开头称呼得体，正文先说目的再说细节
+3. 结尾有明确的下一步行动或请求
+4. 语气礼貌专业，不超过500字</div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #059669;">
+      <h4><span class="icon">📈</span>工作总结</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">你是一位机关文字工作者。根据以下素材写一份{时间段}工作总结：
+{工作素材/完成事项/数据}
+要求：
+1. 开头总述（时间段+总体情况）
+2. 主体分3-4个方面，每方面写"做了什么+取得什么成效"
+3. 存在问题和不足单独一段
+4. 下一步工作计划单独一段
+5. 用数据和具体事例说话，不超过2000字</div>
+    </div>
+
+    <!-- 宣传专项类 -->
+    <h3 style="color:var(--primary);margin:40px 0 20px;font-size:20px;">三、宣传专项类（宣传岗适用）</h3>
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #d97706;">
       <h4><span class="icon">📰</span>政务新闻稿</h4>
       <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">你是一位有10年经验的海关宣传干部。根据以下素材写一篇政务新闻稿：
-{素材}
-要求：标题简洁有力，正文分三段（背景、举措、成效），600字以内，语气客观严谨，不用"重磅""震惊"等夸张词。</div>
+{活动素材/新闻素材}
+要求：
+1. 标题简洁有力（不超过20字）
+2. 导语一段说清"时间、地点、谁、做了什么、意义"
+3. 正文分背景、举措、成效三段
+4. 600-800字，语气客观严谨，不用"重磅""震惊"等夸张词</div>
     </div>
-    
-    <div class="card" style="margin-bottom:24px;">
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #d97706;">
       <h4><span class="icon">📖</span>政策解读（三步法）</h4>
       <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">第一步：请总结下面这段政策的三个核心要点，每个要点不超过30字。
 {政策原文}
-第二步：请用大白话，把这三个要点解读给中小企业老板听：先说对他有什么用，再说怎么申请，最后列注意事项。可以打比方。
-第三步：再帮我把它整理成"一图读懂"的文案结构：一个主标题、三个核心要点，每个要点配一句不超过30字的白话解释。</div>
+第二步：请用大白话，把这三个要点解读给{受众，如：企业老板/办事群众}听：先说对他有什么用，再说怎么申请，最后列注意事项。可以打比方。
+第三步：再帮我整理成"一图读懂"的文案结构：一个主标题、三个核心要点，每点配一句不超过30字的白话解释。</div>
     </div>
-    
-    <div class="card" style="margin-bottom:24px;">
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #d97706;">
       <h4><span class="icon">📱</span>公众号推文+标题</h4>
       <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">根据这篇材料写一条政务公众号推文：
 {材料}
-要求：标题控制在20字内且不说"震惊""重磅"，正文口语化但不失严谨，配"一图读懂"的分点结构。
-再给这篇推文想5个公众号标题，要求：不超过20字，突出"对企业有什么用"。</div>
+要求：
+1. 标题控制在20字内，不说"震惊""重磅"
+2. 正文口语化但不失严谨，用"一图读懂"的分点结构
+3. 配3个小标题，每段不超过150字
+再给这篇推文想5个公众号标题，要求：不超过20字，突出"对读者有什么用"。</div>
     </div>
-    
-    <div class="card" style="margin-bottom:24px;">
-      <h4><span class="icon">🧠</span>思维链（复杂分析）</h4>
-      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">请先列出{问题}涉及的几个方面，再分别分析，最后给出你的结论和建议。</div>
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #d97706;">
+      <h4><span class="icon">🔄</span>一稿多改（一次活动，多种稿件）</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">根据以下活动素材，分别写4种不同用途的稿件：
+{活动素材}
+1. 新闻通稿（600字，给媒体用，客观全面）
+2. 公众号推文（400字，给企业群众看，突出便利和服务）
+3. 内部简报（300字，给上级和内部看，突出工作成效和数据）
+4. 政策解读（500字，结合活动涉及的政策，用大白话讲清企业能享受什么）
+每种稿件开头标注用途，语气和侧重点要明显不同。</div>
     </div>
-    
-    <div class="card" style="margin-bottom:24px;">
-      <h4><span class="icon">📋</span>少样本（给范文）</h4>
-      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">这是我们以前发过的一篇新闻稿（范文）：
-{范文全文}
-请按照这个标题风格和段落结构，写一篇关于{新主题}的新稿。</div>
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #d97706;">
+      <h4><span class="icon">🎨</span>公众号排版（AI直接出HTML）</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">把下面这篇公众号文章，排版成可以直接复制到公众号编辑器的HTML：
+{文章全文}
+排版要求：
+1. 政务风格，主色调用海关蓝（#1e40af），辅助色用浅灰
+2. 标题加粗居中，正文15px，行间距1.8倍
+3. 每段之间有空行，重点内容用蓝色底色块标注
+4. 小标题用蓝色左边框+加粗
+5. 输出完整的HTML代码，我直接复制粘贴到公众号后台</div>
     </div>
-    
-    <div class="card" style="margin-bottom:24px;">
-      <h4><span class="icon">🛡️</span>能力边界（防幻觉）</h4>
-      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">只基于以下材料回答，不要补充网上信息：
-{材料}
-如果材料中没有提到，就明确说"材料未提及"。</div>
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #d97706;">
+      <h4><span class="icon">🖼️</span>作图提示词（封面图/海报）</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">生成一张{类型，如：公众号封面图/政策宣传海报}。
+标题文字："{标题}"
+画面内容：{主体+场景，如：通关口岸、集装箱、货轮，企业家交流}
+风格：{如：政务蓝色调，简洁大气，商务风}
+画幅：{如：横版2.35:1（公众号封面）/ 竖版3:4（海报）}
+要求：文字清晰可辨，不要出现错别字，整体专业大气。</div>
     </div>
-    
-    <div class="card" style="margin-bottom:24px;">
-      <h4><span class="icon">🎨</span>作图提示词</h4>
-      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">生成一张{类型}，标题文字："{标题}"。画面：{主体+场景}，{风格}，{画幅，如横版16:9}。
-示例：生成一张政策宣传海报，标题文字："综保区新9条，企业出海更顺"。画面：通关口岸、集装箱、货轮，政务蓝色调，简洁大气，横版16:9。</div>
-    </div>
-    
-    <div class="card" style="margin-bottom:24px;">
-      <h4><span class="icon">🎬</span>视频脚本</h4>
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #d97706;">
+      <h4><span class="icon">🎬</span>短视频脚本</h4>
       <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">把下面的政策要点，改写成一段60秒短视频口播脚本：
 {政策要点}
-结构：开头5秒钩子（提问式）、中间三个要点（每点不超过30字）、结尾一句号召。口语化，像海关干部在镜头前说话。</div>
+结构：
+1. 开头5秒钩子（提问式，如："企业出海不知道有哪些政策支持？"）
+2. 中间三个要点（每点不超过30字，配画面说明）
+3. 结尾一句号召（如："关注青浦海关，获取更多政策解读"）
+要求：口语化，像海关干部在镜头前说话，不要书面语。</div>
     </div>
-    
-    <div class="card">
-      <h4><span class="icon">💻</span>桌面智能体指令</h4>
-      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">帮我把这个文件夹里的文件，按"{分类1}、{分类2}、{分类3}"三类，各整理到一个子文件夹里。</div>
+
+    <!-- AI伙伴类 -->
+    <h3 style="color:var(--primary);margin:40px 0 20px;font-size:20px;">四、AI伙伴类</h3>
+
+    <div class="card" style="margin-bottom:24px;border-left:4px solid #7c3aed;">
+      <h4><span class="icon">🤖</span>AI伙伴创建官（让AI认识你）</h4>
+      <div style="background:var(--bg);border-radius:8px;padding:20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;">你是一位专业的"AI工作伙伴创建官"，专门帮助青浦海关的工作人员，通过轻松的对话引导，创建出一份个性化的"个人AI工作伙伴说明书"，并帮助他把设置保存到AI的长期记忆里。
+
+通过6个方面的引导提问，帮助我想清楚：我是谁、我干什么活、我要AI帮我做什么、什么标准算合格、我们怎么沟通、什么事必须我把关。
+
+引导规则：一次只问1个核心问题；每个问题先说明"为什么问"；回答模糊可以追问1个；不要替我回答；语气轻松像朋友聊天。
+
+6个方面：1.认识你（岗位和日常工作）2.工作内容（最常做的三类工作、最头疼的事）3.AI帮你做什么（最希望先帮哪件事）4.你的标准（合格的文稿/汇报是什么样）5.怎么沟通（任务不明确先问还是先做）6.权限边界（哪些事AI不能自己做主）
+
+引导结束后分三步：第一步整理完整版+精简版说明书；第二步给我确认，可以修改；第三步引导我把精简版复制到「自定义指令」里，告诉具体操作路径。
+
+现在开始：先做个简单的自我介绍，然后问第一个问题。</div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#eff6ff,#f0fdf4);border-radius:12px;padding:24px;margin-top:40px;">
+      <h4 style="margin:0 0 12px;color:#1e40af;">💡 使用小贴士</h4>
+      <ul style="margin:0;padding-left:20px;line-height:2;color:#374151;">
+        <li>把{ }里的内容换成你自己的，其他文字不用改</li>
+        <li>第一次用可以先试"万能公式"，熟悉后再用专项模板</li>
+        <li>AI给的初稿一定要检查，特别是政策口径、数据、人名</li>
+        <li>效果不好就加要求："再正式一点""再短一点""分点说"</li>
+        <li>把好用的提示词存下来，下次直接用（作业三就是做这个）</li>
+      </ul>
     </div>
   </div>
 </div>
